@@ -1,5 +1,5 @@
 package com.dms.base.service;
-import com.dms.base.model.Package;
+import com.dms.base.model.Packages;
 import com.dms.base.repository.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,20 @@ public class PackageService {
         this.packageRepository = packageRepository;
     }
 
-    public List<Package> getAllPackages(){
+    public List<Packages> getAllPackages(){
         return packageRepository.findAll();
     }
     
-    public Optional<Package> getPackageById(long id){
+    public Optional<Packages> getPackageById(long id){
         return packageRepository.findById(id);
     }
 
-    public Package createPackage(Package newPackage){
+    public Packages createPackage(Packages newPackage){
         return packageRepository.save(newPackage);
     }
 
-  public Package updatePackage(long id, Package packageDetails) {
-        Package existingPackage = packageRepository.findById(id).orElseThrow(() -> new RuntimeException("Package not found with id: " + id)); 
+  public Packages updatePackage(long id, Packages packageDetails) {
+        Packages existingPackage = packageRepository.findById(id).orElseThrow(() -> new RuntimeException("Package not found with id: " + id)); 
         existingPackage.setCreatedBy(packageDetails.getCreatedBy());
         existingPackage.setCompanyId(packageDetails.getCompanyId());
         existingPackage.setDriverId(packageDetails.getDriverId());
@@ -73,11 +73,5 @@ public class PackageService {
         return packageRepository.save(existingPackage);
     }
     
-    public void deletePackage(long id){
-        if(packageRepository.existsById(id)){
-            packageRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Package not found with id: " + id);
-        }
-    }
+
 }

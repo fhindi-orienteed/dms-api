@@ -1,5 +1,5 @@
 package com.dms.base.controller;
-import com.dms.base.model.Package;
+import com.dms.base.model.Packages;
 import com.dms.base.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,30 +8,30 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/packages")
+@RequestMapping("public/packages")
 public class PackageController {
     @Autowired
     private PackageService packageService;
 
     @GetMapping
-    public List<Package> getAllPackages(){
+    public List<Packages> getAllPackages(){
         return packageService.getAllPackages();
     }
 
     @GetMapping("/{id}")
-    public Optional<Package> gatPackageById(@PathVariable long id){
+    public Optional<Packages> gatPackageById(@PathVariable long id){
         return packageService.getPackageById(id);
     }
 
     @PostMapping
-    public Package createPackage(@RequestBody Package newPackage){
+    public Packages createPackage(@RequestBody Packages newPackage){
         return packageService.createPackage(newPackage);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Package> updatePackage(@PathVariable long id, @RequestBody Package packageUpdated){
+    public ResponseEntity<Packages> updatePackage(@PathVariable long id, @RequestBody Packages packageUpdated){
         try{   
-            Package updatedPackage = packageService.updatePackage(id, packageUpdated);
+            Packages updatedPackage = packageService.updatePackage(id, packageUpdated);
             return ResponseEntity.ok(updatedPackage);
 
         } catch (RuntimeException e) {
@@ -39,9 +39,5 @@ public class PackageController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePackage(@PathVariable long id){
-        packageService.deletePackage(id);
-        return ResponseEntity.noContent().build();
-    }
+
 }

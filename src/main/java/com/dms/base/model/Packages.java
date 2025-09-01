@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "packages")
-public class Package {
+public class Packages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;                                           
@@ -69,54 +69,7 @@ public class Package {
         }
     }
 
-    public Package() {
-    }
-
-    public Package(int createdBy, int companyId, int driverId, int branchId, int carId, String customerNote, String packageDescription, int quantity, float weight, String trackingNumber, String referenceNumber, String shippingStatus, 
-                  String deliveryStatus, String collectionStatus, String paymentStatus, String serviceType, String packageType, int customerId, String customerName, String customerMobile1, String customerMobile2, String deliveryArea, 
-                  String deliveryCountry, String deliveryCity, String deliveryAddress, String deliveryLongitude, String deliveryLatitude, Date deliveryDate, Date deliveredOn, Date shippingAt, String deliveryNote, float deliveryCost, boolean allowOpen, boolean breakable, boolean dangerous, boolean needPackaging, 
-                  boolean needCooling, String paymentMethod, float paymentAmount, String collectionMethod, int deliveryRetries) {
-        this.createdBy = createdBy;
-        this.companyId = companyId;
-        this.driverId = driverId;
-        this.branchId = branchId;
-        this.carId = carId;
-        this.customerNote = customerNote;
-        this.packageDescription = packageDescription;
-        this.quantity = quantity;
-        this.weight = weight;
-        this.trackingNumber = trackingNumber;
-        this.referenceNumber = referenceNumber;
-        this.shippingStatus = shippingStatus;
-        this.deliveryStatus = deliveryStatus;
-        this.collectionStatus = collectionStatus;
-        this.paymentStatus = paymentStatus;
-        this.serviceType = serviceType;
-        this.packageType = packageType;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerMobile1 = customerMobile1;
-        this.customerMobile2 = customerMobile2;
-        this.deliveryArea = deliveryArea;
-        this.deliveryCountry = deliveryCountry;
-        this.deliveryCity = deliveryCity;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryLongitude = deliveryLongitude;
-        this.deliveryLatitude = deliveryLatitude;
-        this.deliveryDate = deliveryDate;
-        this.deliveredOn = deliveredOn;
-        this.shippingAt = shippingAt;
-        this.deliveryNote = deliveryNote;
-        this.deliveryCost = deliveryCost;
-        this.allowOpen = allowOpen;
-        this.breakable = breakable;
-        this.dangerous = dangerous;
-        this.needPackaging = needPackaging;
-        this.needCooling = needCooling;
-        this.paymentMethod = paymentMethod;
-        this.paymentAmount = paymentAmount;
-        this.collectionMethod = collectionMethod;
-        this.deliveryRetries = deliveryRetries;
+    public Packages() {
     }
 
     public long getId() {
@@ -471,53 +424,4 @@ public class Package {
         this.deliveryRetries = deliveryRetries;
     }
 
-    @Override
-    public String toString() {
-        return "Package{" +
-                "id=" + id +
-                ", uuid='" + uuid + '\'' +
-                ", createdBy=" + createdBy +
-                ", createdAt=" + createdAt +
-                ", companyId=" + companyId +
-                ", driverId=" + driverId +
-                ", branchId=" + branchId +
-                ", carId=" + carId +
-                ", customerNote='" + customerNote + '\'' +
-                ", packageDescription='" + packageDescription + '\'' +
-                ", quantity=" + quantity +
-                ", weight=" + weight +
-                ", trackingNumber='" + trackingNumber + '\'' +
-                ", referenceNumber='" + referenceNumber + '\'' +
-                ", shippingStatus='" + shippingStatus + '\'' +
-                ", deliveryStatus='" + deliveryStatus + '\'' +
-                ", collectionStatus='" + collectionStatus + '\'' +
-                ", paymentStatus='" + paymentStatus + '\'' +
-                ", serviceType='" + serviceType + '\'' +
-                ", packageType='" + packageType + '\'' +
-                ", customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", customerMobile1='" + customerMobile1 + '\'' +
-                ", customerMobile2='" + customerMobile2 + '\'' +
-                ", deliveryArea='" + deliveryArea + '\'' +
-                ", deliveryCountry='" + deliveryCountry + '\'' +
-                ", deliveryCity='" + deliveryCity + '\'' +
-                ", deliveryAddress='" + deliveryAddress + '\'' +
-                ", deliveryLongitude='" + deliveryLongitude + '\'' +
-                ", deliveryLatitude='" + deliveryLatitude + '\'' +
-                ", deliveryDate=" + deliveryDate +
-                ", deliveredOn=" + deliveredOn +
-                ", shippingAt=" + shippingAt +
-                ", deliveryNote='" + deliveryNote + '\'' +
-                ", deliveryCost=" + deliveryCost +
-                ", allowOpen=" + allowOpen +
-                ", breakable=" + breakable +
-                ", dangerous=" + dangerous +
-                ", needPackaging=" + needPackaging +
-                ", needCooling=" + needCooling +
-                ", paymentMethod='" + paymentMethod + '\'' +
-                ", paymentAmount=" + paymentAmount +
-                ", collectionMethod='" + collectionMethod + '\'' +
-                ", deliveryRetries=" + deliveryRetries +
-                '}';
-    }
 }

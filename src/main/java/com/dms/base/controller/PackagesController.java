@@ -20,7 +20,7 @@ public class PackagesController {
     private PackagesMapper packageMapper;
 
     @GetMapping("/track/{uuid}")
-    public ResponseEntity<PublicPackageResponse> getPackageById(@PathVariable String uuid) {
+    public ResponseEntity<PublicPackageResponse> getPackageByUuid(@PathVariable String uuid) {
         if (!uuid.matches("\\d{16}")) {  
             throw new BadRequestException("UUID must be exactly 16 digits.");
         } 

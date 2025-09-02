@@ -24,7 +24,7 @@ public class PackagesController {
         if (!uuid.matches("\\d{16}")) {  
             throw new BadRequestException("UUID must be exactly 16 digits.");
         } 
-        Optional<Packages> pkg = packagesService.getPackageById(uuid);
+        Optional<Packages> pkg = packagesService.getPackageByUuid(uuid);
         if (pkg.isEmpty()) {
             throw new ObjectNotFoundException("Package with UUID " + uuid + " not found.");
         }

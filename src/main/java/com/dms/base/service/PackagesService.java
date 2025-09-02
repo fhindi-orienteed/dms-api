@@ -14,7 +14,7 @@ public class PackagesService {
         this.packagesRepository = packagesRepository;
     }
 
-    public Optional<Packages> getPackageById(String uuid){
+    public Optional<Packages> getPackageByUuid(String uuid){
         Optional<Packages> pkg = packagesRepository.findByUuid(uuid); 
         return pkg;
     }

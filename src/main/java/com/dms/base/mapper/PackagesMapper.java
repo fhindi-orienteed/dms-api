@@ -17,9 +17,6 @@ public class PackagesMapper {
         response.setReferenceNumber(packageEntity.getReferenceNumber());
         response.setShippingStatus(packageEntity.getShippingStatus());
         response.setDeliveryStatus(packageEntity.getDeliveryStatus());
-        response.setCollectionStatus(packageEntity.getCollectionStatus());
-        response.setPaymentStatus(packageEntity.getPaymentStatus());
-        response.setServiceType(packageEntity.getServiceType());
         response.setPackageType(packageEntity.getPackageType());
         response.setCustomerName(packageEntity.getCustomerName());
         response.setDeliveryArea(packageEntity.getDeliveryArea());
@@ -34,13 +31,9 @@ public class PackagesMapper {
         response.setWeight(packageEntity.getWeight());
         response.setCustomerNote(packageEntity.getCustomerNote());
         response.setDeliveryNote(packageEntity.getDeliveryNote());
-        response.setPaymentMethod(packageEntity.getPaymentMethod());
-        response.setPaymentAmount(packageEntity.getPaymentAmount());
-        response.setDeliveryCost(packageEntity.getDeliveryCost());
         response.setAllowOpen(packageEntity.isAllowOpen());
         response.setBreakable(packageEntity.isBreakable());
         response.setDangerous(packageEntity.isDangerous());
-        response.setDeliveryRetries(packageEntity.getDeliveryRetries());
         
         return response;
     }

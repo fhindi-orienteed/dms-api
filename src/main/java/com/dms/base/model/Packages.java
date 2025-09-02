@@ -6,8 +6,8 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import java.util.UUID;
 import java.util.Date;
+import java.util.Random;
 
 @Entity
 @Table(name = "packages")
@@ -62,7 +62,9 @@ public class Packages {
     @PrePersist                                               
     public void generateUuidAndTimestamp() {
         if (this.uuid == null) {
-            this.uuid = UUID.randomUUID().toString();
+            Random random = new Random();
+            long number = (long) (1e15 + random.nextDouble() * 9e15); 
+            this.uuid = String.valueOf(number);
         }
         if (this.createdAt == null) {
             this.createdAt = new Date();

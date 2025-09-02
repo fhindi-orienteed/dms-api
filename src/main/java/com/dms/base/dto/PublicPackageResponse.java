@@ -1,6 +1,8 @@
 package com.dms.base.dto;
 import java.util.Date;
 
+import javax.print.DocFlavor.STRING;
+
 public class PublicPackageResponse {
     private String uuid;
     private String trackingNumber;
@@ -9,11 +11,9 @@ public class PublicPackageResponse {
     // Status information
     private String shippingStatus;
     private String deliveryStatus;
-    private String collectionStatus;
-    private String paymentStatus;
+
 
     // Service details
-    private String serviceType;
     private String packageType;
 
     // customer info
@@ -34,21 +34,14 @@ public class PublicPackageResponse {
     private String packageDescription;
     private int quantity;
     private float weight;
-    
+
     // Notes    
     private String customerNote;
     private String deliveryNote;
-
-    // Payment information
-    private String paymentMethod;
-    private float paymentAmount;
-    private float deliveryCost;
-
     // Handling flags
     private boolean allowOpen;
     private boolean breakable;
     private boolean dangerous;
-    private int deliveryRetries;
    
     public PublicPackageResponse() {
     }
@@ -93,29 +86,6 @@ public class PublicPackageResponse {
         this.deliveryStatus = deliveryStatus;
     }
     
-    public String getCollectionStatus() {
-        return collectionStatus;
-    }
-    
-    public void setCollectionStatus(String collectionStatus) {
-        this.collectionStatus = collectionStatus;
-    }
-    
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-    
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-    
-    public String getServiceType() {
-        return serviceType;
-    }
-    
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
     
     public String getPackageType() {
         return packageType;
@@ -229,29 +199,6 @@ public class PublicPackageResponse {
         this.deliveryNote = deliveryNote;
     }
     
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-    
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-    
-    public float getPaymentAmount() {
-        return paymentAmount;
-    }
-    
-    public void setPaymentAmount(float paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-    
-    public float getDeliveryCost() {
-        return deliveryCost;
-    }
-    
-    public void setDeliveryCost(float deliveryCost) {
-        this.deliveryCost = deliveryCost;
-    }
     
     public boolean isAllowOpen() {
         return allowOpen;
@@ -277,11 +224,5 @@ public class PublicPackageResponse {
         this.dangerous = dangerous;
     }
     
-    public int getDeliveryRetries() {
-        return deliveryRetries;
-    }
-    
-    public void setDeliveryRetries(int deliveryRetries) {
-        this.deliveryRetries = deliveryRetries;
-    }
+
 }

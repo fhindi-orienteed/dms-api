@@ -18,4 +18,8 @@ public class PackagesService {
         Optional<Packages> pkg = packagesRepository.findByUuid(uuid); 
         return pkg;
     }
+
+    public Packages createNewPackage(Packages newPackages){
+        return packagesRepository.save(newPackages);
+    }
 }

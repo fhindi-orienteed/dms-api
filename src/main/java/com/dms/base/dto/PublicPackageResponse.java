@@ -1,8 +1,6 @@
 package com.dms.base.dto;
 import java.util.Date;
 
-import javax.print.DocFlavor.STRING;
-
 public class PublicPackageResponse {
     private String uuid;
     private String trackingNumber;

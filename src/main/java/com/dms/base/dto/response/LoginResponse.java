@@ -1,4 +1,6 @@
-package com.dms.base.dto;
+package com.dms.base.dto.response;
+
+import com.dms.base.dto.UserDto;
 
 public class LoginResponse {
 

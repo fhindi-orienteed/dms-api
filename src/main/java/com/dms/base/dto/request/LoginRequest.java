@@ -1,15 +1,12 @@
-package com.dms.base.dto;
+package com.dms.base.dto.request;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
 
-    @NotBlank(message = "Username is required")
     @Email(message = "Username must be a valid email")
     private String username;
 
-    @NotBlank(message = "Password is required")
     private String password;
 
     public String getUsername() {

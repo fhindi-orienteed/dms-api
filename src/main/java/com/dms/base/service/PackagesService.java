@@ -19,7 +19,7 @@ public class PackagesService {
         return pkg;
     }
 
-    public Packages createnewPackage(Packages newPackages){
+    public Packages createNewPackage(Packages newPackages){
         return packagesRepository.save(newPackages);
     }
 }

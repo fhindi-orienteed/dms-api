@@ -19,7 +19,7 @@ public class MobilePackagesController extends BasePackagesController {
     @PostMapping("/new")
     public ResponseEntity<MobilePackageResponse> createPackage(@RequestBody MobilePackageRequest request) {
         Packages newPackage = mobilePackageMapper.toPackageRequest(request);
-        Packages createdPackage = packagesService.createnewPackage(newPackage);
+        Packages createdPackage = packagesService.createNewPackage(newPackage);
         MobilePackageResponse response = new MobilePackageResponse();
         response.setId(createdPackage.getId());
         response.setMessage("Package Created Successfully");

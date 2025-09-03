@@ -1,5 +1,4 @@
-package com.dms.base.controller.publicapi; 
-import com.dms.base.controller.BasePackagesController;
+package com.dms.base.controller; 
 import com.dms.base.dto.PublicPackageResponse;
 import com.dms.base.exception.BadRequestException;
 import com.dms.base.exception.ObjectNotFoundException;

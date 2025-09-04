@@ -1,21 +1,24 @@
 package com.dms.base.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Long id; 
-
-    private String name;
-    private String email;
-    private String phone;
-    private String role;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date createdDate;
+    private String username;
     private String password;
     private boolean locked;
+    private String name;
+    private String phone;
 
     public User() {
     }
@@ -29,6 +32,12 @@ public class User {
         this.password = password;
         this.locked = locked;
     }
+    private String role;
+    private String email;
+    private String mobile;
+    private Date lastSession;
+    private Integer passwordRetries;
+    private String status;
 
     public Long getId() {
         return id;
@@ -38,36 +47,43 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getCreatedDate() {
+        return createdDate;
     }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public String getName() {
+    return name;
+}
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    this.name = name;
     }
 
     public String getPhone() {
-        return phone;
+    return phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+    this.phone = phone;  
     }
 
-    public String getRole() {
-        return role;
+    public boolean isLocked() {
+    return locked;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setLocked(boolean locked) {
+    this.locked = locked;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -78,65 +94,51 @@ public class User {
         this.password = password;
     }
 
-    public boolean isLocked() {
-        return locked;
+    public String getRole() {
+        return role;
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    // ---- Builder (manual) ----
-    public static class Builder {
-        private Long id;
-        private String name;
-        private String email;
-        private String phone;
-        private String role;
-        private String password;
-        private boolean locked;
-
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder phone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public Builder role(String role) {
-            this.role = role;
-            return this;
-        }
-
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder locked(boolean locked) {
-            this.locked = locked;
-            return this;
-        }
-
-        public User build() {
-            return new User(id, name, email, phone, role, password, locked);
-        }
+    public String getEmail() {
+        return email;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Date getLastSession() {
+        return lastSession;
+    }
+
+    public void setLastSession(Date lastSession) {
+        this.lastSession = lastSession;
+    }
+
+    public Integer getPasswordRetries() {
+        return passwordRetries;
+    }
+
+    public void setPasswordRetries(Integer passwordRetries) {
+        this.passwordRetries = passwordRetries;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

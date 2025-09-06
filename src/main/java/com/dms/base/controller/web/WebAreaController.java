@@ -29,7 +29,7 @@ public class WebAreaController extends AreaController {
         Page<Area> areaList = areaService.getAreaList(pageable, country, city);
 
         List<Area> content = areaList.getContent();
-        System.out.println(content.size());
+
         PaginatedResponse<AreaResponse> response = new PaginatedResponse<>(
                 areaList.getNumber(),
                 areaList.getSize(),

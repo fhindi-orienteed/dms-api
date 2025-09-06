@@ -1,31 +1,20 @@
-package com.dms.base.model;
+package com.dms.base.dto.response;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "prices")
-public class Price {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PriceResponse {
     private Long id;
-
     private Long companyId;
     private Long branchId;
+    private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String country;
     private String city;
     private String area;
     private Double cost;
-    private Integer status;
-    private String name;
-    private Integer isDefault;
+    private Boolean status;
+    private Boolean isDefault;
 
     public Long getId() {
         return id;
@@ -49,6 +38,14 @@ public class Price {
 
     public void setBranchId(Long branchId) {
         this.branchId = branchId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCountry() {
@@ -83,27 +80,19 @@ public class Price {
         this.cost = cost;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getIsDefault() {
+    public Boolean getIsDefault() {
         return isDefault;
     }
 
-    public void setIsDefault(Integer isDefault) {
+    public void setIsDefault(Boolean isDefault) {
         this.isDefault = isDefault;
     }
 

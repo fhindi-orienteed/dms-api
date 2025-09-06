@@ -1,28 +1,18 @@
-package com.dms.base.dto.response;
+package com.dms.base.dto;
 
 import java.time.LocalDateTime;
 
-public class PriceResponse {
-    private Long id;
-    private Long companyId;
-    private Long branchId;
-    private String name;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private String country;
-    private String city;
-    private String area;
-    private Double cost;
-    private Boolean status;
-    private Boolean isDefault;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+public class PriceDTO {
+    protected Long companyId;
+    protected Long branchId;
+    protected String name;
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
+    protected String country;
+    protected String city;
+    protected String area;
+    protected Double cost;
+    protected Boolean status;
 
     public Long getCompanyId() {
         return companyId;
@@ -46,6 +36,22 @@ public class PriceResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     public String getCountry() {
@@ -86,30 +92,6 @@ public class PriceResponse {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public Boolean getIsDefault() {
-        return isDefault;
-    }
-
-    public void setIsDefault(Boolean isDefault) {
-        this.isDefault = isDefault;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
     }
 
 }

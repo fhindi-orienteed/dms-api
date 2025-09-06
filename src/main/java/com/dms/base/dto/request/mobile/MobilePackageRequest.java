@@ -1,4 +1,4 @@
-package com.dms.base.dto;
+package com.dms.base.dto.request.mobile;
 
 import java.util.Date;
 
@@ -45,11 +45,9 @@ public class MobilePackageRequest {
     private String collectionMethod;
     private int deliveryRetries;
 
-
-    public MobilePackageRequest(){
+    public MobilePackageRequest() {
 
     }
-
 
     public int getCreatedBy() {
         return createdBy;
@@ -58,7 +56,6 @@ public class MobilePackageRequest {
     public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
-
 
     public int getCompanyId() {
         return companyId;

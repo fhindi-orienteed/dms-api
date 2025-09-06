@@ -1,13 +1,13 @@
 package com.dms.base.mapper;
 
-import com.dms.base.dto.MobilePackageRequest;
+import com.dms.base.dto.request.mobile.MobilePackageRequest;
 import com.dms.base.model.Packages;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MobilePackageMapper {
 
-        public Packages toPackageRequest(MobilePackageRequest request){
+    public Packages toPackageRequest(MobilePackageRequest request) {
         if (request == null) {
             return null;
         }

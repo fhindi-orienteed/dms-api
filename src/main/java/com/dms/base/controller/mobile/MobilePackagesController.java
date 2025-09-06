@@ -1,8 +1,8 @@
 package com.dms.base.controller.mobile;
 
 import com.dms.base.controller.common.PackagesController;
-import com.dms.base.dto.MobilePackageRequest;
-import com.dms.base.dto.MobilePackageResponse;
+import com.dms.base.dto.request.mobile.MobilePackageRequest;
+import com.dms.base.dto.response.mobile.MobilePackageResponse;
 import com.dms.base.mapper.MobilePackageMapper;
 import com.dms.base.model.Packages;
 import org.springframework.beans.factory.annotation.Autowired;

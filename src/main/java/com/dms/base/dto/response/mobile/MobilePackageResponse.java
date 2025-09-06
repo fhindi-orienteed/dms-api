@@ -1,10 +1,10 @@
-package com.dms.base.dto;
+package com.dms.base.dto.response.mobile;
 
 public class MobilePackageResponse {
     private long id;
     private String message;
 
-    public MobilePackageResponse(){
+    public MobilePackageResponse() {
 
     }
 
@@ -22,5 +22,5 @@ public class MobilePackageResponse {
 
     public void setMessage(String message) {
         this.message = message;
-    }    
+    }
 }

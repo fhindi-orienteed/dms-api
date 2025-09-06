@@ -1,7 +1,7 @@
 package com.dms.base.controller.generic;
 
 import com.dms.base.controller.common.PackagesController;
-import com.dms.base.dto.PublicPackageResponse;
+import com.dms.base.dto.response.PublicPackageResponse;
 import com.dms.base.exception.BadRequestException;
 import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.mapper.PackagesMapper;

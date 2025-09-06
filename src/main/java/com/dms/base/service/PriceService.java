@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.dms.base.dto.request.web.CreateNewPriceRequest;
 import com.dms.base.model.Price;
 import com.dms.base.repository.PriceRepository;
 import com.dms.base.specification.PriceSpecification;
@@ -32,5 +33,26 @@ public class PriceService {
         }
 
         return priceRepository.findAll(spec, pageable);
+    }
+
+    public Price createNewPrice(CreateNewPriceRequest request) {
+        Price price = new Price();
+
+        price.setCompanyId(request.getCompanyId());
+        price.setBranchId(request.getBranchId());
+        price.setCost(request.getCost());
+        price.setCity(request.getCity());
+        price.setArea(request.getArea());
+        price.setCountry(request.getCountry());
+        price.setEndDate(request.getEndDate());
+        price.setStartDate(request.getStartDate());
+
+        // don't allow to create default price. it's should be setup manualy in DB
+        price.setIsDefault(0);
+
+        price.setStatus(request.getStatus() ? 1 : 0);
+        price.setName(request.getName());
+
+        return priceRepository.save(price);
     }
 }

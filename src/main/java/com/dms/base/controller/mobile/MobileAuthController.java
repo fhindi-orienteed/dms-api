@@ -1,4 +1,4 @@
-package com.dms.base.controller;
+package com.dms.base.controller.mobile;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +15,11 @@ import com.dms.base.dto.response.LoginResponse;
 
 @RestController
 @RequestMapping("/v1/mobile/auth")
-public class AuthController {
+public class MobileAuthController {
 
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    public MobileAuthController(AuthService authService) {
         this.authService = authService;
     }
 

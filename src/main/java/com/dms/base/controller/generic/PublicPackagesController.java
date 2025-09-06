@@ -1,4 +1,6 @@
-package com.dms.base.controller; 
+package com.dms.base.controller.generic;
+
+import com.dms.base.controller.common.PackagesController;
 import com.dms.base.dto.PublicPackageResponse;
 import com.dms.base.exception.BadRequestException;
 import com.dms.base.exception.ObjectNotFoundException;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/public/packages")
-public class PublicPackagesController extends BasePackagesController {
+@RequestMapping("/v1/public/packages")
+public class PublicPackagesController extends PackagesController {
 
     @Autowired
     private PackagesMapper packageMapper;

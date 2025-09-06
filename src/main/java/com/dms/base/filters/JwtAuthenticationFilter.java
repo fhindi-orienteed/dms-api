@@ -1,9 +1,7 @@
 package com.dms.base.filters;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,20 +9,23 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.dms.base.service.AuthService;
+import com.dms.base.service.CustomUserDetailsService;
 import com.dms.base.util.JwtUtility;
 
-import java.io.IOException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtility jwtUtility;
-    private final AuthService authService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public JwtAuthenticationFilter(JwtUtility jwtUtility, AuthService authService) {
+    public JwtAuthenticationFilter(JwtUtility jwtUtility, CustomUserDetailsService customUserDetailsService) {
         this.jwtUtility = jwtUtility;
-        this.authService = authService;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null) {
             String userName = jwtUtility.getUserNameFromToken(token);
-            UserDetails userDetails = authService.loadUserByUsername(userName);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
                     null, userDetails.getAuthorities());

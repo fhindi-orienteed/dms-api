@@ -1,14 +1,9 @@
 package com.dms.base.service;
 
-import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +16,7 @@ import com.dms.base.repository.UserRepository;
 import com.dms.base.util.JwtUtility;
 
 @Service
-public class AuthService implements UserDetailsService {
+public class AuthService {
 
     @Value("${jwt.web.expiration}")
     private long webExpiration;
@@ -73,25 +68,5 @@ public class AuthService implements UserDetailsService {
         String accessToken = jwtUtility.generateMobileAccessToken(user);
 
         return new LoginResponse(accessToken, userMapper.mapUserLoginResponse(user));
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserName(),
-                user.getPassword(),
-                user.getStatus(),
-                true,
-                true,
-                true,
-                Collections.singleton(getAuthority(user)));
-    }
-
-    private GrantedAuthority getAuthority(User user) {
-        String roleName = "ROLE_" + user.getRole();
-        return new SimpleGrantedAuthority(roleName);
     }
 }

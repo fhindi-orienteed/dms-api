@@ -16,6 +16,8 @@ public class AreaMapper {
             a.setId(area.getId());
             a.setName(area.getName());
             a.setCode(area.getCode());
+            a.setCity(area.getCity());
+            a.setCountry(area.getCountry());
             return a;
         }).toList();
     }

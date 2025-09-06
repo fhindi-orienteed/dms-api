@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.AreaController;
@@ -20,9 +21,12 @@ import com.dms.base.model.Area;
 public class WebAreaController extends AreaController {
 
     @GetMapping("/list")
-    public ResponseEntity<PaginatedResponse<AreaResponse>> getAreas(@PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<PaginatedResponse<AreaResponse>> getAreas(
+            @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String city) {
 
-        Page<Area> areaList = areaService.getAreaList(pageable);
+        Page<Area> areaList = areaService.getAreaList(pageable, country, city);
 
         List<Area> content = areaList.getContent();
         System.out.println(content.size());

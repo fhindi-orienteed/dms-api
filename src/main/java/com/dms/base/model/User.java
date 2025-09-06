@@ -16,6 +16,22 @@ public class User {
     private Date createdDate;
     private String username;
     private String password;
+    private boolean locked;
+    private String name;
+    private String phone;
+
+    public User() {
+    }
+
+    public User(Long id, String name, String email, String phone, String role, String password, boolean locked) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.password = password;
+        this.locked = locked;
+    }
     private String role;
     private String email;
     private String mobile;
@@ -41,6 +57,29 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+    public String getName() {
+    return name;
+}
+
+    public void setName(String name) {
+    this.name = name;
+    }
+
+    public String getPhone() {
+    return phone;
+    }
+
+    public void setPhone(String phone) {
+    this.phone = phone;  
+    }
+
+    public boolean isLocked() {
+    return locked;
+    }
+
+    public void setLocked(boolean locked) {
+    this.locked = locked;
     }
 
     public void setUsername(String username) {

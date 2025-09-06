@@ -1,18 +1,16 @@
 package com.dms.base.dto.response;
 
-import com.dms.base.dto.UserDto;
+import com.dms.base.dto.response.UserLoginResponse;
 
 public class LoginResponse {
 
     private String accessToken;
     private String refreshToken;
     private long expiresIn;
-    private UserDto user;
+    private UserLoginResponse user;
 
-    public LoginResponse(String accessToken, String refreshToken, long expiresIn, UserDto user) {
+    public LoginResponse(String accessToken, UserLoginResponse user) {
         this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        this.expiresIn = expiresIn;
         this.user = user;
     }
 
@@ -40,11 +38,11 @@ public class LoginResponse {
         this.expiresIn = expiresIn;
     }
 
-    public UserDto getUser() {
+    public UserLoginResponse getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(UserLoginResponse user) {
         this.user = user;
     }
 }

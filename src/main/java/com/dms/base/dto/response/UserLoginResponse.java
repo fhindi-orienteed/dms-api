@@ -1,26 +1,18 @@
-package com.dms.base.dto;
+package com.dms.base.dto.response;
 
-public class UserDto {
+public class UserLoginResponse {
 
-    private String id;
+    private Long id;
     private String name;
     private String email;
     private String phone;
     private String role;
 
-    public UserDto(String id, String name, String email, String phone, String role) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

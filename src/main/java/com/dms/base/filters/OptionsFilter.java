@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Filter that sets headers on CORS preflight requests
@@ -15,8 +16,8 @@ import java.io.IOException;
 @Component
 public class OptionsFilter implements Filter {
 
-    @Value("${cors.allowed-origin:*}") // fallback to * if missing
-    private String allowedOrigin;
+    @Value("${cors.allowed-origins:*}") // fallback to * if missing
+    private String[] allowedOrigins;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -25,12 +26,14 @@ public class OptionsFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.setHeader("Access-Control-Allow-Credentials", "true");
+        String origin = req.getHeader("Origin");
+        if ("OPTIONS".equalsIgnoreCase(req.getMethod()) && Arrays.asList(allowedOrigins).contains(origin)) {
+            res.setHeader("Access-Control-Allow-Origin", origin);
+            res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            res.setHeader("Access-Control-Allow-Credentials", "true");
+            res.setHeader("Access-Control-Max-Age", "3600");
 
-        if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {
             res.setStatus(HttpServletResponse.SC_OK);
             return;
         }

@@ -13,7 +13,6 @@ import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
 import com.dms.base.dto.response.LoginResponse;
 
-
 @RestController
 @RequestMapping("/v1/mobile/auth")
 public class AuthController {
@@ -27,14 +26,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
-            LoginResponse response = authService.login(request);
+            LoginResponse response = authService.mobileLogin(request.getUserName(), request.getPassword());
             return ResponseEntity.ok(response);
         } catch (InvalidCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "INVALID_CREDENTIALS", "message", "User name or password is incorrect"));
         } catch (AccountLockedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(Map.of("error", "ACCOUNT_LOCKED", "message", "Your account has been locked. Please contact support."));
+                    .body(Map.of("error", "ACCOUNT_LOCKED", "message",
+                            "Your account has been locked. Please contact support."));
         }
     }
 }

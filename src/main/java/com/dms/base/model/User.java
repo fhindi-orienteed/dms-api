@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date createdDate;
-    private String username;
+    private String userName;
     private String password;
     private boolean locked;
     private String name;
@@ -32,12 +32,13 @@ public class User {
         this.password = password;
         this.locked = locked;
     }
+
     private String role;
     private String email;
     private String mobile;
     private Date lastSession;
     private Integer passwordRetries;
-    private String status;
+    private Boolean status;
 
     public Long getId() {
         return id;
@@ -55,35 +56,36 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
+
     public String getName() {
-    return name;
-}
+        return name;
+    }
 
     public void setName(String name) {
-    this.name = name;
+        this.name = name;
     }
 
     public String getPhone() {
-    return phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-    this.phone = phone;  
+        this.phone = phone;
     }
 
     public boolean isLocked() {
-    return locked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-    this.locked = locked;
+        this.locked = locked;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -134,11 +136,12 @@ public class User {
         this.passwordRetries = passwordRetries;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
+
 }

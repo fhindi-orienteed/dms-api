@@ -15,7 +15,7 @@ import java.io.IOException;
 @Component
 public class OptionsFilter implements Filter {
 
-    @Value("${cors.allowed-origin}")
+    @Value("${cors.allowed-origin:*}") // fallback to * if missing
     private String allowedOrigin;
 
     @Override

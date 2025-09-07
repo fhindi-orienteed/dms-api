@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.dms.base.dto.request.web.CreateNewUserRequest;
 import com.dms.base.dto.response.UserLoginResponse;
 import com.dms.base.dto.response.mobile.MobileUserResponse;
+import com.dms.base.dto.response.web.WebUserResponse;
 import com.dms.base.model.User;
 import java.util.Date;
 
@@ -25,18 +26,20 @@ public class UserMapper {
         return res;
     }
 
-    public User mapToCreateWebUserRequest(CreateNewUserRequest newUserRequest) {
-        User usr = new User();
-        usr.setRole(newUserRequest.getRole());
-        usr.setUserName(newUserRequest.getUserName());
-        usr.setPassword(newUserRequest.getPassword());
-        usr.setCreatedDate(new Date()); // set current date
-        usr.setStatus(1); // assuming 1 means active
-        usr.setPasswordRetries(0);
-        usr.setPasswordExpired(0);
-        usr.setPasswordCreation(0);
-        usr.setTimeout(1800); // example timeout in seconds
-        return usr;
+    public WebUserResponse mapToWebResponse(User user) {
+        WebUserResponse response = new WebUserResponse();
+        response.setId(user.getId());
+        response.setRole(user.getRole());
+        response.setUserName(user.getUserName());
+        response.setCreatedDate(user.getCreatedDate());
+        response.setStatus(user.getStatus());
+        response.setCreatedDate(new Date()); // set current date
+        response.setStatus(1); // assuming 1 means active
+        response.setPasswordRetries(0);
+        response.setPasswordExpired(0);
+        response.setPasswordCreation(0);
+        response.setTimeout(1800); // example timeout in seconds
+        return response;
     }
-
+  
 }

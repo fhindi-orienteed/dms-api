@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
+import java.util.Date;
 import com.dms.base.model.User;
 import com.dms.base.repository.UserRepository;
 
@@ -30,7 +30,20 @@ public class UserService {
         return null; // No authenticated user or user details found
     }
 
-    public User createNewUser(User newUser){
+    public User createNewUser(String username, String password, String role, Date createdDate, 
+                            Integer status, Integer passwordRetries, Integer passwordExpired, 
+                            Integer passwordCreation, Integer timeout) {
+        User newUser = new User();
+        newUser.setUserName(username);
+        newUser.setPassword(password);
+        newUser.setRole(role);
+        newUser.setCreatedDate(createdDate);
+        newUser.setStatus(status);
+        newUser.setPasswordRetries(passwordRetries);
+        newUser.setPasswordExpired(passwordExpired);
+        newUser.setPasswordCreation(passwordCreation);
+        newUser.setTimeout(timeout);
+        
         return userRepository.save(newUser);
     }
 }

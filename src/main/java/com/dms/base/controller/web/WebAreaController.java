@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/v1/web/area")
-@Tag(name = "WEB - Area API", description = "This class provides RESTful services to get, add, update, or delete area used by DMS. You can filter list by country or city.")
+@Tag(name = "Area API", description = "This class provides RESTful services to get, add, update, or delete area used by DMS Web Portal. You can filter list by country or city.")
 public class WebAreaController extends AreaController {
 
     @GetMapping("/list")

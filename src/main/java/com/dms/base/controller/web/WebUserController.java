@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/v1/web/users")
-@Tag(name = "Web API", description = "Endpoints for Web Users API")
+@Tag(name = "Users API", description = "Endpoints for Web Users API")
 public class WebUserController extends UserController {
 
     @GetMapping("/current")

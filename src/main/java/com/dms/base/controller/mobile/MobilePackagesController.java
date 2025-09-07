@@ -5,12 +5,16 @@ import com.dms.base.dto.request.mobile.MobilePackageRequest;
 import com.dms.base.dto.response.mobile.MobilePackageResponse;
 import com.dms.base.mapper.MobilePackageMapper;
 import com.dms.base.model.Packages;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/mobile/packages")
+@Tag(name = "Packages API", description = "These services provide APIs related to packages management for DMS Mobile Application.")
 public class MobilePackagesController extends PackagesController {
 
     @Autowired

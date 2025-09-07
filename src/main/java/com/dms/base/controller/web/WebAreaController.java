@@ -16,8 +16,11 @@ import com.dms.base.dto.response.AreaResponse;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.model.Area;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/v1/web/area")
+@Tag(name = "WEB - Area API", description = "This class provides RESTful services to get, add, update, or delete area used by DMS. You can filter list by country or city.")
 public class WebAreaController extends AreaController {
 
     @GetMapping("/list")

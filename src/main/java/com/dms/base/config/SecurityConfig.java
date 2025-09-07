@@ -34,7 +34,12 @@ public class SecurityConfig {
             // Auth Controller
             "/v1/web/auth/login",
             "/v1/mobile/auth/login",
-            "/v1/public/**"
+            "/v1/public/**",
+            // Swagger
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/swagger-resources/**",
     };
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {

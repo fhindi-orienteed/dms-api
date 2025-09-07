@@ -16,29 +16,17 @@ public class User {
     private Date createdDate;
     private String userName;
     private String password;
-    private boolean locked;
-    private String name;
-    private String phone;
+    private Integer status;
+    private String role;
+    private Integer passwordRetries;
+    private Integer passwordExpired;
+    private Integer passwordCreation;
+    private Integer timeout;
+
+    private Date lastSession;
 
     public User() {
     }
-
-    public User(Long id, String name, String email, String phone, String role, String password, boolean locked) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-        this.password = password;
-        this.locked = locked;
-    }
-
-    private String role;
-    private String email;
-    private String mobile;
-    private Date lastSession;
-    private Integer passwordRetries;
-    private Boolean status;
 
     public Long getId() {
         return id;
@@ -58,30 +46,6 @@ public class User {
 
     public String getUserName() {
         return userName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
     }
 
     public void setUserName(String userName) {
@@ -104,22 +68,6 @@ public class User {
         this.role = role;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public Date getLastSession() {
         return lastSession;
     }
@@ -136,12 +84,36 @@ public class User {
         this.passwordRetries = passwordRetries;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getPasswordExpired() {
+        return passwordExpired;
+    }
+
+    public void setPasswordExpired(Integer passwordExpired) {
+        this.passwordExpired = passwordExpired;
+    }
+
+    public Integer getPasswordCreation() {
+        return passwordCreation;
+    }
+
+    public void setPasswordCreation(Integer passwordCreation) {
+        this.passwordCreation = passwordCreation;
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
     }
 
 }

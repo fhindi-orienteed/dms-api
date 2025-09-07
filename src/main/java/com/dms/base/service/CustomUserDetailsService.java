@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.dms.base.model.User;
 import com.dms.base.repository.UserRepository;
+import com.dms.base.util.Constant;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -29,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUserName(),
                 user.getPassword(),
-                user.getStatus(),
+                user.getStatus() == Constant.USER_STATUS_ENEABLED,
                 true,
                 true,
                 true,

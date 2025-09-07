@@ -29,4 +29,8 @@ public class UserService {
         }
         return null; // No authenticated user or user details found
     }
+
+    public User createNewUser(User newUser){
+        return userRepository.save(newUser);
+    }
 }

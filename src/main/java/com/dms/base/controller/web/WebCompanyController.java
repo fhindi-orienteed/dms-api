@@ -5,14 +5,15 @@ import com.dms.base.model.Company;
 import com.dms.base.service.CompanyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import com.dms.base.controller.common.CompanyController;
+
 @RestController
-@RequestMapping("v1/web/company")
-@Tag(name = "Web Company", description = "Endpoints for managing companies in the web application") 
-public class WebCompanyController {
-    @Autowired
+@RequestMapping("/v1/web/company")
+@Tag(name = "Web Company", description = "Endpoints for managing companies in the web application")
+public class WebCompanyController extends CompanyController {
+
     private final CompanyService companyService;
 
     public WebCompanyController(CompanyService companyService) {
@@ -24,5 +25,10 @@ public class WebCompanyController {
         Company createdCompany = companyService.createCompany(request);
         return ResponseEntity.ok(createdCompany);
     }
-    
+
+    @GetMapping("/current")
+    public ResponseEntity<?> getCurrentCompany() {
+        Company company = companyService.getCurrentCompany();
+        return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
+    }
 }

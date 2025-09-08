@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyService {
+
     private final CompanyRepository companyRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
@@ -29,4 +30,10 @@ public class CompanyService {
 
         return companyRepository.save(company);
     }
+
+    public Company getCurrentCompany() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentCompany'");
+    }
 }
+

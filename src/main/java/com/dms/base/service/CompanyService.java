@@ -1,9 +1,9 @@
 package com.dms.base.service;
 
-import com.dms.base.dto.request.web.NewCompanyRequest;
+import org.springframework.stereotype.Service;
+
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyService {
@@ -14,19 +14,20 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public Company createCompany(NewCompanyRequest request) {
+    public Company createNewCompany(String name, String country, String city, String address, String email,
+            String phone, String mobile, String facebook, String instegram, String registrationNumber) {
         Company company = new Company();
-        
-        company.setName(request.getName());
-        company.setCountry(request.getCountry());
-        company.setCity(request.getCity());
-        company.setAddress(request.getAddress());
-        company.setEmail(request.getEmail());
-        company.setPhone(request.getPhone());
-        company.setMobile(request.getMobile());
-        company.setFacebook(request.getFacebook());
-        company.setInstegram(request.getInstegram());
-        company.setRegistrationNumber(request.getRegistrationNumber());
+
+        company.setName(name);
+        company.setCountry(country);
+        company.setCity(city);
+        company.setAddress(address);
+        company.setEmail(email);
+        company.setPhone(phone);
+        company.setMobile(mobile);
+        company.setFacebook(facebook);
+        company.setInstegram(instegram);
+        company.setRegistrationNumber(registrationNumber);
 
         return companyRepository.save(company);
     }
@@ -36,4 +37,3 @@ public class CompanyService {
         throw new UnsupportedOperationException("Unimplemented method 'getCurrentCompany'");
     }
 }
-

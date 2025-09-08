@@ -2,12 +2,10 @@ package com.dms.base.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.dms.base.dto.request.web.CreateNewUserRequest;
 import com.dms.base.dto.response.UserLoginResponse;
 import com.dms.base.dto.response.mobile.MobileUserResponse;
 import com.dms.base.dto.response.web.WebUserResponse;
 import com.dms.base.model.User;
-import java.util.Date;
 
 @Component
 public class UserMapper {
@@ -33,5 +31,4 @@ public class UserMapper {
         res.setUserName(user.getUserName());
         return res;
     }
-
 }

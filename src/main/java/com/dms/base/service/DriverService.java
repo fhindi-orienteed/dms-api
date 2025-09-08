@@ -10,7 +10,9 @@ public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public Driver createNewDriver(Driver driver){
+    public Driver createNewDriver(Long userId) {
+        Driver driver = new Driver();
+        driver.setUserId(userId);
         return driverRepository.save(driver);
     }
 }

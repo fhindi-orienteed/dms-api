@@ -27,19 +27,11 @@ public class UserMapper {
     }
 
     public WebUserResponse mapToWebResponse(User user) {
-        WebUserResponse response = new WebUserResponse();
-        response.setId(user.getId());
-        response.setRole(user.getRole());
-        response.setUserName(user.getUserName());
-        response.setCreatedDate(user.getCreatedDate());
-        response.setStatus(user.getStatus());
-        response.setCreatedDate(new Date()); // set current date
-        response.setStatus(1); // assuming 1 means active
-        response.setPasswordRetries(0);
-        response.setPasswordExpired(0);
-        response.setPasswordCreation(0);
-        response.setTimeout(1800); // example timeout in seconds
-        return response;
+        WebUserResponse res = new WebUserResponse();
+        res.setId(user.getId());
+        res.setCreatedDate(user.getCreatedDate());
+        res.setUserName(user.getUserName());
+        return res;
     }
-  
+
 }

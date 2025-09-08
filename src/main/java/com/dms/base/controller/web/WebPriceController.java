@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/v1/web/price")
-@Tag(name = "WEB - Price API", description = "This class provides RESTful services to get, add, update, or delete price list used by DMS web portal.")
+@Tag(name = "Price API", description = "This class provides RESTful services to get, add, update, or delete price list used by DMS Web Portal.")
 public class WebPriceController extends PriceController {
 
     @GetMapping("/list")

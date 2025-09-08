@@ -1,28 +1,16 @@
 package com.dms.base.controller.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dms.base.controller.common.UserController;
-import com.dms.base.dto.request.web.CreateNewUserRequest;
-import com.dms.base.dto.response.web.WebCreateUserResponse;
-import java.util.Date;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import com.dms.base.mapper.DriverMapper;
-import com.dms.base.model.Driver;
 import com.dms.base.model.User;
-import com.dms.base.exception.BadRequestException;
-import com.dms.base.service.DriverService;
-import com.dms.base.dto.response.web.WebDriverResponse;
-import com.dms.base.dto.response.web.WebUserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/v1/web/users")
-@Tag(name = "Web API", description = "Endpoints for Web Users API")
+@Tag(name = "Users API", description = "Endpoints for Web Users API")
 public class WebUserController extends UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -55,10 +43,9 @@ public class WebUserController extends UserController {
         WebUserResponse userResponseDto = userMapper.mapToWebResponse(userResponse);
         WebDriverResponse driverResponseDto = driverMapper.mapToWebResponse(responseDriver);
 
-        WebCreateUserResponse response = new WebCreateUserResponse();
-        response.setUser(userResponseDto);
-        response.setDriver(driverResponseDto);
-        response.setMessage("Successfully Created");
-        return ResponseEntity.ok(response);
+    @GetMapping("/current")
+    public ResponseEntity<?> getCurrentUser() {
+        User user = userService.getCurrentUser();
+        return ResponseEntity.ok(userMapper.mapToWebResponse(user));
     }
 }

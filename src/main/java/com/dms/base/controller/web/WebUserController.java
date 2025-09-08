@@ -21,6 +21,12 @@ public class WebUserController extends UserController {
     @Autowired
     private DriverMapper driverMapper;
 
+    @GetMapping("/current")
+    public ResponseEntity<?> getCurrentUser() {
+        User user = userService.getCurrentUser();
+        return ResponseEntity.ok(userMapper.mapToWebResponse(user));
+    }
+
     @PostMapping
     public ResponseEntity<WebCreateUserResponse> createNewUser(@RequestBody CreateNewUserRequest newUserRequest) {
         if (!newUserRequest.getPassword().equals(newUserRequest.getConfirmPassword())) {
@@ -42,10 +48,12 @@ public class WebUserController extends UserController {
         // Map entities to response DTOs
         WebUserResponse userResponseDto = userMapper.mapToWebResponse(userResponse);
         WebDriverResponse driverResponseDto = driverMapper.mapToWebResponse(responseDriver);
-
-    @GetMapping("/current")
-    public ResponseEntity<?> getCurrentUser() {
-        User user = userService.getCurrentUser();
-        return ResponseEntity.ok(userMapper.mapToWebResponse(user));
+        WebCreateUserResponse response = new WebCreateUserResponse();
+        response.setUser(userResponseDto);
+        response.setDriver(driverResponseDto);
+        response.setMessage("Successfully Created");
+        return ResponseEntity.ok(response);
     }
+
+
 }

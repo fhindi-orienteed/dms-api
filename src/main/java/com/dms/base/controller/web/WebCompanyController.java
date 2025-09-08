@@ -11,7 +11,7 @@ import com.dms.base.controller.common.CompanyController;
 
 @RestController
 @RequestMapping("/v1/web/company")
-@Tag(name = "Web Company", description = "Endpoints for managing companies in the web application")
+@Tag(name = "Company API", description = "Endpoints for Web Company API")
 public class WebCompanyController extends CompanyController {
 
     private final CompanyService companyService;

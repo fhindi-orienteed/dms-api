@@ -35,7 +35,6 @@ public class SecurityConfig {
             "/v1/web/auth/login",
             "/v1/mobile/auth/login",
             "/v1/public/**",
-            "/v1/web/company/new",  // TEMP: open for testing, should be secured after web login API is done
             // Swagger
             "/v3/api-docs/**",
             "/swagger-ui/**",

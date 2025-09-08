@@ -21,13 +21,7 @@ public class WebUserController extends UserController {
     @Autowired
     private DriverMapper driverMapper;
 
-    @GetMapping("/current")
-    public ResponseEntity<?> getCurrentUser() {
-        User user = userService.getCurrentUser();
-        return ResponseEntity.ok(userMapper.mapToWebResponse(user));
-    }
-
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<WebCreateUserResponse> createNewUser(@RequestBody CreateNewUserRequest newUserRequest) {
         if (!newUserRequest.getPassword().equals(newUserRequest.getConfirmPassword())) {
             throw new BadRequestException("Passwords do not match");
@@ -35,7 +29,6 @@ public class WebUserController extends UserController {
 
         String hashedPassword = passwordEncoder.encode(newUserRequest.getPassword());
         
-        // Call the service method with individual parameters
         User userResponse = userService.createNewUser(newUserRequest.getUserName(),hashedPassword,newUserRequest.getRole(),new Date(), 1,  0,0,
             0,1800
         );
@@ -45,7 +38,6 @@ public class WebUserController extends UserController {
         
         Driver responseDriver = driverService.createNewDriver(newDriver);
 
-        // Map entities to response DTOs
         WebUserResponse userResponseDto = userMapper.mapToWebResponse(userResponse);
         WebDriverResponse driverResponseDto = driverMapper.mapToWebResponse(responseDriver);
         WebCreateUserResponse response = new WebCreateUserResponse();
@@ -54,6 +46,5 @@ public class WebUserController extends UserController {
         response.setMessage("Successfully Created");
         return ResponseEntity.ok(response);
     }
-
 
 }

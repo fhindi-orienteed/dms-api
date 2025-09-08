@@ -1,0 +1,28 @@
+package com.dms.base.controller.web;
+
+import com.dms.base.dto.request.web.NewCompanyRequest;
+import com.dms.base.model.Company;
+import com.dms.base.service.CompanyService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
+@RestController
+@RequestMapping("v1/web/company")
+@Tag(name = "Web Company", description = "Endpoints for managing companies in the web application") 
+public class WebCompanyController {
+    @Autowired
+    private final CompanyService companyService;
+
+    public WebCompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<Company> createCompany(@RequestBody NewCompanyRequest request) {
+        Company createdCompany = companyService.createCompany(request);
+        return ResponseEntity.ok(createdCompany);
+    }
+    
+}

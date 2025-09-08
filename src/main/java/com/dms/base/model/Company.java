@@ -15,14 +15,15 @@ public class Company {
     
     private Date createdDate;
     private String name;
-    private String county;
+    private String country;
     private String city;
     private String address;
     private String email;
     private String phone;
     private String mobile;
     private String facebook;
-    private String integram;
+    private String instegram;
+    private String registrationNumber;
     private String status;
 
 
@@ -47,11 +48,11 @@ public class Company {
          this.name = name;
          }
     
-    public String getCounty() { 
-        return county; 
+    public String getCountry() { 
+        return country; 
     }
-    public void setCounty(String county) { 
-        this.county = county; 
+    public void setCountry(String country) { 
+        this.country = country; 
     }
     
     public String getCity() { 
@@ -96,12 +97,19 @@ public class Company {
         this.facebook = facebook; 
     }
     
-    public String getIntegram() { 
-        return integram; 
+    public String getInstegram() { 
+        return instegram; 
     }
-    public void setIntegram(String integram) {
-         this.integram = integram; 
+    public void setInstegram(String instegram) {
+         this.instegram = instegram; 
         }
+    
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
     
     public String getStatus() { 
         return status; 

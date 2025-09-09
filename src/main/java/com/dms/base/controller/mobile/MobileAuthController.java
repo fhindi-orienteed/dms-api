@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import java.util.Map;
-import com.dms.base.service.AuthService;
-
+import com.dms.base.controller.common.AuthController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.dms.base.exception.InvalidCredentialsException;
@@ -19,13 +18,7 @@ import com.dms.base.dto.response.LoginResponse;
 @RestController
 @RequestMapping("/v1/mobile/auth")
 @Tag(name = "Authentication API", description = "These services provide APIs related to authentication and session management for DMS Mobile Application.")
-public class MobileAuthController {
-
-    private final AuthService authService;
-
-    public MobileAuthController(AuthService authService) {
-        this.authService = authService;
-    }
+public class MobileAuthController extends AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {

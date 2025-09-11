@@ -1,6 +1,8 @@
 package com.dms.base.dto.response.mobile;
 
-public class MobilePackageResponse {
+import com.dms.base.dto.response.common.PackageResponse;
+
+public class MobilePackageResponse extends PackageResponse {
     private long id;
     private String message;
 

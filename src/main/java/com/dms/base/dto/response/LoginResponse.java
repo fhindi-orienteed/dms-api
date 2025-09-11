@@ -1,7 +1,5 @@
 package com.dms.base.dto.response;
 
-import com.dms.base.dto.response.UserLoginResponse;
-
 public class LoginResponse {
 
     private String accessToken;

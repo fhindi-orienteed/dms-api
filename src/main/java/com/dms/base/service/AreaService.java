@@ -33,4 +33,8 @@ public class AreaService {
 
         return areaRepository.findAll(spec, pageable);
     }
+
+    public Area createNewArea(Area newArea){
+        return areaRepository.save(newArea);
+    }
 }

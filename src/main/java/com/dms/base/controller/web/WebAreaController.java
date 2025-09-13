@@ -7,15 +7,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.AreaController;
 import com.dms.base.dto.response.AreaResponse;
+import com.dms.base.dto.request.web.CreateNewAreaRequest;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.model.Area;
 
+import org.springframework.web.bind.annotation.RequestBody; 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -40,6 +43,14 @@ public class WebAreaController extends AreaController {
                 areaList.getTotalPages(),
                 areaMapper.mapToWebResponse(content));
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<AreaResponse> createNewArea(@RequestBody CreateNewAreaRequest newArea){
+        Area mapped_area = areaMapper.mapRequestToArea(newArea);
+        Area new_Area = areaService.createNewArea(mapped_area);
+        AreaResponse response = areaMapper.mapToAreaResponse(new_Area);
         return ResponseEntity.ok(response);
     }
 }

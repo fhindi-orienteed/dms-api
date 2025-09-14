@@ -43,4 +43,8 @@ public class PackagesService {
 
         return packagesRepository.findAll(spec, pageable);
     }
+
+    public Page<Packages> getPackagesList(Pageable pageable) {
+        return packagesRepository.findAll(pageable);
+    }
 }

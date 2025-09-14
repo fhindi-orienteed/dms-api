@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,20 @@ public class MobilePackagesController extends PackagesController {
 
     @Autowired
     private MobilePackageMapper mobilePackageMapper;
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getPackagesList(@PageableDefault(size = 10) Pageable pageable) {
+        Page<Packages> list = packagesService.getPackagesList(pageable);
+
+        PaginatedResponse<MobilePackageResponse> response = new PaginatedResponse<MobilePackageResponse>();
+        response.setData(packagesMapper.toMobileResponse(list.getContent()));
+        response.setPage(list.getNumber());
+        response.setSize(list.getSize());
+        response.setTotalItems(list.getTotalElements());
+        response.setTotalPages(list.getTotalPages());
+
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/new")
     public ResponseEntity<MobilePackageResponse> createPackage(@RequestBody MobilePackageRequest request) {

@@ -1,6 +1,6 @@
 package com.dms.base.model;
 
-import com.dms.base.util.Constant.Update_Request_Status;
+import com.dms.base.util.Constant.UpdateRequestStatus;
 import com.dms.base.dto.PackageDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,14 +21,14 @@ public class PackageUpdateRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    private long package_id;
+    private long packageId;
     
     private long submitBy;
     
     @Column(length = 2048)
     private String data; 
     
-    private Update_Request_Status request_Status;
+    private UpdateRequestStatus requestStatus;
 
     public long getId() {
         return id;
@@ -38,12 +38,12 @@ public class PackageUpdateRequest {
         this.id = id;
     }
 
-    public long getPackage_id() {
-        return package_id;
+    public long getPackageId() {
+        return packageId;
     }
 
-    public void setPackage_id(long package_id) {
-        this.package_id = package_id;
+    public void setPackageId(long packageId) {
+        this.packageId = packageId;
     }
 
     public long getSubmitBy() {
@@ -80,11 +80,11 @@ public class PackageUpdateRequest {
         this.data = data;
     }
 
-    public Update_Request_Status getRequest_Status() {
-        return request_Status;
+    public UpdateRequestStatus getRequestStatus() {
+        return requestStatus;
     }
 
-    public void setRequest_Status(Update_Request_Status request_Status) {
-        this.request_Status = request_Status;
+    public void setRequestStatus(UpdateRequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
     }
 }

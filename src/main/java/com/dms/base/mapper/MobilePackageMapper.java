@@ -1,8 +1,6 @@
 package com.dms.base.mapper;
 
 import com.dms.base.dto.request.mobile.MobilePackageRequest;
-import com.dms.base.dto.request.mobile.MobileUpdateRequestPackage;
-import com.dms.base.model.PackageUpdateRequest;
 import com.dms.base.model.Packages;
 import org.springframework.stereotype.Component;
 

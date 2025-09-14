@@ -75,9 +75,9 @@ public class MobilePackagesController extends PackagesController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> insertPackageUpdate(@RequestBody MobileUpdateRequestPackage request) {
-        PackageUpdateRequest newRequest = packageUpdateRequestService.createNewRequest(request.getSubmitBy(),request.getData(),request.getPackage_id(),request.getRequest_Status());
+    @PostMapping("/packages/{id}/update")
+    public ResponseEntity<?> updatePackage(@RequestBody MobileUpdateRequestPackage request) {
+        PackageUpdateRequest newRequest = packageUpdateRequestService.createNewRequest(request.getData());
         return ResponseEntity.ok(newRequest);
     }
 }

@@ -5,6 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,8 +21,8 @@ public class User {
     private Integer status;
     private String role;
     private Integer passwordRetries;
-    private Integer passwordExpired;
-    private Integer passwordCreation;
+    private boolean passwordExpired;
+    private LocalDateTime passwordCreation;
     private Integer timeout;
 
     private Date lastSession;
@@ -92,28 +94,28 @@ public class User {
         this.status = status;
     }
 
-    public Integer getPasswordExpired() {
-        return passwordExpired;
-    }
-
-    public void setPasswordExpired(Integer passwordExpired) {
-        this.passwordExpired = passwordExpired;
-    }
-
-    public Integer getPasswordCreation() {
-        return passwordCreation;
-    }
-
-    public void setPasswordCreation(Integer passwordCreation) {
-        this.passwordCreation = passwordCreation;
-    }
-
     public Integer getTimeout() {
         return timeout;
     }
 
     public void setTimeout(Integer timeout) {
         this.timeout = timeout;
+    }
+
+    public boolean isPasswordExpired() {
+        return passwordExpired;
+    }
+
+    public void setPasswordExpired(boolean passwordExpired) {
+        this.passwordExpired = passwordExpired;
+    }
+
+    public LocalDateTime getPasswordCreation() {
+        return passwordCreation;
+    }
+
+    public void setPasswordCreation(LocalDateTime passwordCreation) {
+        this.passwordCreation = passwordCreation;
     }
 
 }

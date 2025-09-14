@@ -1,5 +1,7 @@
 package com.dms.base.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dms.base.model.Company;
@@ -30,6 +32,10 @@ public class CompanyService {
         company.setRegistrationNumber(registrationNumber);
 
         return companyRepository.save(company);
+    }
+
+    public Page<Company> getCopmpanyList(Pageable pageable) {
+        return companyRepository.findAll(pageable);
     }
 
     public Company getCurrentCompany() {

@@ -1,26 +1,7 @@
 package com.dms.base.dto.response.mobile;
 
-public class MobilePackageResponse {
-    private long id;
-    private String message;
+import com.dms.base.dto.response.common.PackageResponse;
 
-    public MobilePackageResponse() {
+public class MobilePackageResponse extends PackageResponse {
 
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

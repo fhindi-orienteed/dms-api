@@ -118,4 +118,9 @@ public class User {
         this.passwordCreation = passwordCreation;
     }
 
+    public Long getCompanyId() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCompanyId'");
+    }
+
 }

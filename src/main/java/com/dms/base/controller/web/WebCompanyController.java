@@ -20,13 +20,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class WebCompanyController extends CompanyController {
 
     @GetMapping("/current")
-    public ResponseEntity<?> getCurrentCompany() {
+    public ResponseEntity<WebCompanyResponse> getCurrentCompany() {
         Company company = companyService.getCurrentCompany();
         return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> createNewCompany(@RequestBody NewCompanyRequest request) {
+    public ResponseEntity<WebCompanyResponse> createNewCompany(@RequestBody NewCompanyRequest request) {
         Company company = companyService.createNewCompany(request.getName(), request.getCountry(), request.getCity(),
                 request.getAddress(), request.getEmail(), request.getPhone(), request.getMobile(),
                 request.getFacebook(), request.getInstegram(), request.getRegistrationNumber());

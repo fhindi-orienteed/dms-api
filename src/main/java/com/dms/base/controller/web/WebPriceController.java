@@ -57,14 +57,15 @@ public class WebPriceController extends PriceController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<WebPriceResponse> updatePrice(@PathVariable long id,@RequestBody UpdatePriceRequest request){
-        Optional<Price> exist_price = priceService.getPriceById(id);
-        if(exist_price.isEmpty()){
-            throw new ObjectNotFoundException("Price with ID " + id + " Not Found");
+    public ResponseEntity<WebPriceResponse> updatePrice(@PathVariable long id, @RequestBody UpdatePriceRequest request) {
+        Price existPrice = priceService.getPrice(id);
+        
+        if (existPrice == null) {
+            throw new ObjectNotFoundException("Price with id" + id + "not found");
         }
-
-        Price mqppedPrice = priceMapper.mapUpdateRequestToPrice(request);
-        Price updatedPrice = priceService.updatePrice(id, mqppedPrice);
+        
+        Price mappedPrice = priceMapper.mapUpdateRequestToPrice(request);
+        Price updatedPrice = priceService.updatePrice(existPrice,mappedPrice);
         WebPriceResponse response = priceMapper.mapToWebResponse(updatedPrice);
         response.setId(updatedPrice.getId());
         response.setIsDefault(updatedPrice.getIsDefault() == 1); 

@@ -23,18 +23,6 @@ public class AreaMapper {
         }).toList();
     }
 
-    public Area mapRequestToArea(CreateNewAreaRequest newAreaRequest){
-        Area area = new Area();
-        area.setName(newAreaRequest.getName());
-        area.setCode(newAreaRequest.getCode());
-        area.setCity(newAreaRequest.getCity());
-        area.setCountry(newAreaRequest.getCountry());
-        area.setLatitude(newAreaRequest.getLatitude());
-        area.setLongitude(newAreaRequest.getLongitude());
-
-        return area;
-    }
-
     public AreaResponse mapToAreaResponse(Area area){
         AreaResponse response = new AreaResponse();
         response.setId(area.getId());

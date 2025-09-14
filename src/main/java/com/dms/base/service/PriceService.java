@@ -1,13 +1,12 @@
 package com.dms.base.service;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.dms.base.dto.request.web.CreateNewPriceRequest;
+import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Price;
 import com.dms.base.repository.PriceRepository;
 import com.dms.base.specification.PriceSpecification;
@@ -58,23 +57,19 @@ public class PriceService {
         return priceRepository.save(price);
     }
 
-    public Optional<Price> getPriceById(long id){
-        Optional<Price> fetched_price = priceRepository.findById(id);
-        return fetched_price;
+    public Price getPrice(long id) {
+        return priceRepository.findById(id).orElse(null);
     }
 
-    public Price updatePrice(long id, Price updatedPrice){
-        Price existingPrice = priceRepository.findById(id).get();
-        
-        existingPrice.setName(updatedPrice.getName());
-        existingPrice.setCountry(updatedPrice.getCountry());
-        existingPrice.setCity(updatedPrice.getCity());
-        existingPrice.setArea(updatedPrice.getArea());
-        existingPrice.setStartDate(updatedPrice.getStartDate());
-        existingPrice.setEndDate(updatedPrice.getEndDate());
-        existingPrice.setCost(updatedPrice.getCost());
-        existingPrice.setStatus(updatedPrice.getStatus());
-
-        return priceRepository.save(existingPrice);
+    public Price updatePrice(Price existPrice,Price updatedPrice){
+        existPrice.setName(updatedPrice.getName());
+        existPrice.setCountry(updatedPrice.getCountry());
+        existPrice.setCity(updatedPrice.getCity());
+        existPrice.setArea(updatedPrice.getArea());
+        existPrice.setStartDate(updatedPrice.getStartDate());
+        existPrice.setEndDate(updatedPrice.getEndDate());
+        existPrice.setCost(updatedPrice.getCost());
+        existPrice.setStatus(updatedPrice.getStatus());
+        return priceRepository.save(existPrice);
     }
 }

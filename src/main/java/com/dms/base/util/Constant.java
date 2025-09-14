@@ -14,4 +14,11 @@ public class Constant {
         ROLE_MERCHANT_ADMIN,
         ROLE_MERCHANT_USER
     }
+
+    public enum Update_Request_Status {
+        APPROVE,
+        REJECT,
+        PENDING,
+        PENDING_REVIEW
+    }
 }

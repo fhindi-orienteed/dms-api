@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dms.base.controller.common.PackagesController;
 import com.dms.base.dto.request.mobile.MobilePackageRequest;
 import com.dms.base.dto.request.mobile.MobileSearchPackageRequest;
+import com.dms.base.dto.request.mobile.MobileUpdateRequestPackage;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.mobile.MobilePackageResponse;
 import com.dms.base.mapper.MobilePackageMapper;
+import com.dms.base.model.PackageUpdateRequest;
 import com.dms.base.model.Packages;
+import com.dms.base.service.PackageUpdateRequestService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -29,6 +32,8 @@ public class MobilePackagesController extends PackagesController {
 
     @Autowired
     private MobilePackageMapper mobilePackageMapper;
+    @Autowired
+    private PackageUpdateRequestService packageUpdateRequestService;
 
     @GetMapping("/list")
     public ResponseEntity<?> getPackagesList(@PageableDefault(size = 10) Pageable pageable) {
@@ -68,5 +73,11 @@ public class MobilePackagesController extends PackagesController {
         response.setData(packagesMapper.toMobileResponse(list.getContent()));
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> insertPackageUpdate(@RequestBody MobileUpdateRequestPackage request) {
+        PackageUpdateRequest newRequest = packageUpdateRequestService.createNewRequest(request.getSubmitBy(),request.getData(),request.getPackage_id(),request.getRequest_Status());
+        return ResponseEntity.ok(newRequest);
     }
 }

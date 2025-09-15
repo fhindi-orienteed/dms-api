@@ -1,6 +1,10 @@
 package com.dms.base.service;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+<<<<<<<HEAD
+
+import org.springframework.security.core.context.SecurityContextHolder;=======
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;>>>>>>>origin/main
 import org.springframework.stereotype.Service;
 
 import com.dms.base.config.CustomUserDetails;
@@ -32,6 +36,10 @@ public class CompanyService {
         company.setRegistrationNumber(registrationNumber);
 
         return companyRepository.save(company);
+    }
+
+    public Page<Company> getCopmpanyList(Pageable pageable) {
+        return companyRepository.findAll(pageable);
     }
 
     public Long getCurrentCompanyId() {

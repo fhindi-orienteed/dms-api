@@ -9,6 +9,10 @@ public class PaginatedResponse<T> {
     private int totalPages;
     private List<T> data;
 
+    public PaginatedResponse() {
+
+    }
+
     public PaginatedResponse(int page, int size, long totalItems, int totalPages, List<T> data) {
         this.page = page;
         this.size = size;

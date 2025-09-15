@@ -48,8 +48,8 @@ public class WebAreaController extends AreaController {
 
     @PostMapping("/new")
     public ResponseEntity<AreaResponse> createNewArea(@RequestBody CreateNewAreaRequest newArea){
-        Area new_Area = areaService.createNewArea(newArea.getName(),newArea.getCity(),newArea.getCountry(),newArea.getCode(),newArea.getLatitude(),newArea.getLongitude());
-        AreaResponse response = areaMapper.mapToAreaResponse(new_Area);
+        Area area = areaService.createNewArea(newArea.getName(),newArea.getCity(),newArea.getCountry(),newArea.getCode(),newArea.getLatitude(),newArea.getLongitude());
+        AreaResponse response = areaMapper.mapToAreaResponse(area);
         return ResponseEntity.ok(response);
     }
 }

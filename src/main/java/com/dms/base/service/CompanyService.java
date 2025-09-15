@@ -1,15 +1,11 @@
 package com.dms.base.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.dms.base.config.CustomUserDetails;
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
-
-import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import com.dms.base.config.CustomUserDetails;
 
 @Service
 public class CompanyService {
@@ -38,25 +34,17 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
-    public Company getCurrentCompany() {
-
+    public Long getCurrentCompanyId() {
         CustomUserDetails currentUser = (CustomUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-
-        boolean isAdmin = currentUser.getAuthorities().stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
-
-        boolean isMerchant = currentUser.getAuthorities().stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_MERCHANT"));
-
-        if (!isAdmin && !isMerchant) {
-            throw new AccessDeniedException("You are not allowed to access this resource");
-        }
-
-        Long companyId = currentUser.getCompanyId();
-
-        return companyRepository.findById(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
+        return currentUser.getCompanyId();
     }
 
+    public Company getCurrentCompany() {
+        Long compnayId = getCurrentCompanyId();
+        if (compnayId != null) {
+            return companyRepository.findById(compnayId).orElse(null);
+        }
+        return null;
+    }
 }

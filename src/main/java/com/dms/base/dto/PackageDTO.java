@@ -2,25 +2,13 @@ package com.dms.base.dto;
 import java.util.Date;
 
 public class PackageDTO {
-    private int createdBy;
-    private Date createdAt;
-    private int companyId;
-    private int driverId;
-    private int branchId;
-    private int carId;
     private String customerNote;
     private String packageDescription;
     private int quantity;
     private float weight;
-    private String trackingNumber;
     private String referenceNumber;
-    private String shippingStatus;
-    private String deliveryStatus;
-    private String collectionStatus;
-    private String paymentStatus;
     private String serviceType;
     private String packageType;
-    private int customerId;
     private String customerName;
     private String customerMobile1;
     private String customerMobile2;
@@ -28,75 +16,18 @@ public class PackageDTO {
     private String deliveryCountry;
     private String deliveryCity;
     private String deliveryAddress;
-    private String deliveryLongitude;
-    private String deliveryLatitude;
     private Date deliveryDate;
-    private Date deliveredOn;
-    private Date shippingAt;
     private String deliveryNote;
-    private float deliveryCost;
     private boolean allowOpen;
     private boolean breakable;
     private boolean dangerous;
     private boolean needPackaging;
     private boolean needCooling;
-    private String paymentMethod;
-    private float paymentAmount;
-    private String collectionMethod;
-    private int deliveryRetries;
 
 
     public PackageDTO() {
     }
 
-
-    public int getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(int createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-
-    public int getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
-
-    public int getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
 
     public String getCustomerNote() {
         return customerNote;
@@ -130,14 +61,6 @@ public class PackageDTO {
         this.weight = weight;
     }
 
-    public String getTrackingNumber() {
-        return trackingNumber;
-    }
-
-    public void setTrackingNumber(String trackingNumber) {
-        this.trackingNumber = trackingNumber;
-    }
-
     public String getReferenceNumber() {
         return referenceNumber;
     }
@@ -146,37 +69,6 @@ public class PackageDTO {
         this.referenceNumber = referenceNumber;
     }
 
-    public String getShippingStatus() {
-        return shippingStatus;
-    }
-
-    public void setShippingStatus(String shippingStatus) {
-        this.shippingStatus = shippingStatus;
-    }
-
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(String deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
-
-    public String getCollectionStatus() {
-        return collectionStatus;
-    }
-
-    public void setCollectionStatus(String collectionStatus) {
-        this.collectionStatus = collectionStatus;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
 
     public String getServiceType() {
         return serviceType;
@@ -194,13 +86,6 @@ public class PackageDTO {
         this.packageType = packageType;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
 
     public String getCustomerName() {
         return customerName;
@@ -258,22 +143,6 @@ public class PackageDTO {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public String getDeliveryLongitude() {
-        return deliveryLongitude;
-    }
-
-    public void setDeliveryLongitude(String deliveryLongitude) {
-        this.deliveryLongitude = deliveryLongitude;
-    }
-
-    public String getDeliveryLatitude() {
-        return deliveryLatitude;
-    }
-
-    public void setDeliveryLatitude(String deliveryLatitude) {
-        this.deliveryLatitude = deliveryLatitude;
-    }
-
     public Date getDeliveryDate() {
         return deliveryDate;
     }
@@ -282,21 +151,6 @@ public class PackageDTO {
         this.deliveryDate = deliveryDate;
     }
 
-    public Date getDeliveredOn() {
-        return deliveredOn;
-    }
-
-    public void setDeliveredOn(Date deliveredOn) {
-        this.deliveredOn = deliveredOn;
-    }
-
-    public Date getShippingAt() {
-        return shippingAt;
-    }
-
-    public void setShippingAt(Date shippingAt) {
-        this.shippingAt = shippingAt;
-    }
 
     public String getDeliveryNote() {
         return deliveryNote;
@@ -306,13 +160,6 @@ public class PackageDTO {
         this.deliveryNote = deliveryNote;
     }
 
-    public float getDeliveryCost() {
-        return deliveryCost;
-    }
-
-    public void setDeliveryCost(float deliveryCost) {
-        this.deliveryCost = deliveryCost;
-    }
 
     public boolean isAllowOpen() {
         return allowOpen;
@@ -354,35 +201,4 @@ public class PackageDTO {
         this.needCooling = needCooling;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public float getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentAmount(float paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-
-    public String getCollectionMethod() {
-        return collectionMethod;
-    }
-
-    public void setCollectionMethod(String collectionMethod) {
-        this.collectionMethod = collectionMethod;
-    }
-
-    public int getDeliveryRetries() {
-        return deliveryRetries;
-    }
-
-    public void setDeliveryRetries(int deliveryRetries) {
-        this.deliveryRetries = deliveryRetries;
-    }
 }

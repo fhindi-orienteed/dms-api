@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,9 +76,9 @@ public class MobilePackagesController extends PackagesController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/packages/{id}/update")
-    public ResponseEntity<?> updatePackage(@RequestBody MobileUpdateRequestPackage request) {
-        PackageUpdateRequest newRequest = packageUpdateRequestService.createNewRequest(request.getData());
-        return ResponseEntity.ok(newRequest);
+    @PostMapping("/{id}/update")
+    public ResponseEntity<?> updatePackage(@PathVariable long id,@RequestBody MobileUpdateRequestPackage request) {
+        packageUpdateRequestService.createNewRequest(id, request.getDataJson());
+        return ResponseEntity.ok(null);
     }
 }

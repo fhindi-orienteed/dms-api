@@ -1,9 +1,7 @@
 package com.dms.base.model;
 
 import com.dms.base.util.Constant.UpdateRequestStatus;
-import com.dms.base.dto.PackageDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dms.base.dto.request.mobile.MobileUpdateRequestPackage;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +13,6 @@ import jakarta.persistence.Transient;
 @Entity
 @Table(name = "package_update_requests")
 public class PackageUpdateRequest {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,7 +22,7 @@ public class PackageUpdateRequest {
     private long submitBy;
     
     @Column(length = 2048)
-    private String data; 
+    private String dataJson; 
     
     private UpdateRequestStatus requestStatus;
 
@@ -54,30 +50,23 @@ public class PackageUpdateRequest {
         this.submitBy = submitBy;
     }
 
-   
-    public void setData(PackageDTO data) {
-        try {
-            this.data = OBJECT_MAPPER.writeValueAsString(data);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize PackageDTO to JSON", e);
-        }
+    // Direct access to the JSON string
+    public String getDataJson() {
+        return dataJson;
+    }
+
+    public void setDataJson(String dataJson) {
+        this.dataJson = dataJson;
     }
 
     @Transient 
-    public PackageDTO getData() {
-        try {
-            return data != null ? OBJECT_MAPPER.readValue(data, PackageDTO.class) : null;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to deserialize JSON to PackageDTO", e);
-        }
+    public MobileUpdateRequestPackage getData() {
+        return dataJson != null ? MobileUpdateRequestPackage.fromJson(dataJson) : null;
     }
 
-    public String getDataJson() {
-        return data;
-    }
-
-    public void setDataJson(String data) {
-        this.data = data;
+    @Transient
+    public void setData(MobileUpdateRequestPackage data) {
+        this.dataJson = data.getDataJson();
     }
 
     public UpdateRequestStatus getRequestStatus() {

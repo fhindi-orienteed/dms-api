@@ -11,12 +11,12 @@ public class PackageUpdateRequestService {
     @Autowired
     private PackageUpdateRequestRepository packageUpdateRequestRepository;
     
-    public PackageUpdateRequest createNewRequest(String data){
+    public PackageUpdateRequest createNewRequest(long packageId,String data){
         PackageUpdateRequest request = new PackageUpdateRequest();
-        request.setPackageId(0);
-        request.setSubmitBy(0);
-        request.setDataJson(data);
-        request.setRequestStatus(null);
+        request.setPackageId(packageId);
+        request.setDataJson(data); // Store the JSON string directly
+        // Set submitBy from authentication context
+
         return packageUpdateRequestRepository.save(request);
     }
 }

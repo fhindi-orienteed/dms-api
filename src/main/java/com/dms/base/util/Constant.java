@@ -9,9 +9,10 @@ public class Constant {
 
     public enum RoleType {
         ROLE_ADMIN,
+        ROLE_BRANCH_ADMIN,
         ROLE_CSR,
         ROLE_DRIVER,
-        ROLE_MERCHANT_ADMIN,
-        ROLE_MERCHANT_USER
+        ROLE_COMPANY_ADMIN,
+        ROLE_COMPANY_USER,
     }
 }

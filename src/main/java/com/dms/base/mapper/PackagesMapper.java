@@ -1,11 +1,17 @@
 package com.dms.base.mapper;
 
-import com.dms.base.dto.response.PublicPackageResponse;
-import com.dms.base.model.Packages;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import com.dms.base.dto.response.PublicPackageResponse;
+import com.dms.base.dto.response.mobile.MobilePackageResponse;
+import com.dms.base.model.Packages;
 
 @Component
 public class PackagesMapper {
+
     public PublicPackageResponse toPublicResponse(Packages packageEntity) {
         if (packageEntity == null) {
             return null;
@@ -36,5 +42,22 @@ public class PackagesMapper {
         response.setDangerous(packageEntity.isDangerous());
 
         return response;
+    }
+
+    public MobilePackageResponse toMobileResponse(Packages packg) {
+        if (packg == null) {
+            return null;
+        }
+
+        MobilePackageResponse response = new MobilePackageResponse();
+        response.setUuid(packg.getUuid());
+        response.setTrackingNumber(packg.getTrackingNumber());
+        response.setReferenceNumber(packg.getReferenceNumber());
+
+        return response;
+    }
+
+    public List<MobilePackageResponse> toMobileResponse(List<Packages> list) {
+        return list.stream().map(packg -> toMobileResponse(packg)).toList();
     }
 }

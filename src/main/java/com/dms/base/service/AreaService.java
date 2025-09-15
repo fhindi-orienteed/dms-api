@@ -34,14 +34,16 @@ public class AreaService {
         return areaRepository.findAll(spec, pageable);
     }
 
-    public Area createNewArea(String name , String city, String country,String code,String latitude,String longitude){
+    public Area createNewArea(String name, String code, String country, String city, String latitude,
+            String longitude) {
         Area area = new Area();
-        area.setCity(city);
         area.setName(name);
-        area.setCountry(country);
         area.setCode(code);
+        area.setCity(city);
+        area.setCountry(country);
         area.setLatitude(latitude);
         area.setLongitude(longitude);
+
         return areaRepository.save(area);
     }
 }

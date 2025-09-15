@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.dms.base.dto.request.web.UpdatePriceRequest;
 import com.dms.base.dto.response.web.WebPriceResponse;
 import com.dms.base.model.Price;
 

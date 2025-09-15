@@ -1,5 +1,7 @@
 package com.dms.base.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -61,15 +63,22 @@ public class PriceService {
         return priceRepository.findById(id).orElse(null);
     }
 
-    public Price updatePrice(Price existPrice,Price updatedPrice){
-        existPrice.setName(updatedPrice.getName());
-        existPrice.setCountry(updatedPrice.getCountry());
-        existPrice.setCity(updatedPrice.getCity());
-        existPrice.setArea(updatedPrice.getArea());
-        existPrice.setStartDate(updatedPrice.getStartDate());
-        existPrice.setEndDate(updatedPrice.getEndDate());
-        existPrice.setCost(updatedPrice.getCost());
-        existPrice.setStatus(updatedPrice.getStatus());
-        return priceRepository.save(existPrice);
+    public Price updatePrice(Long id, String name, String country, String city, String area, LocalDateTime startDate,
+            LocalDateTime endDate, Double cost, Integer status) {
+        Price price = getPrice(id);
+
+        if (price == null) {
+            throw new ObjectNotFoundException("Price with id" + id + "not found");
+        }
+
+        price.setName(name);
+        price.setCountry(country);
+        price.setCity(city);
+        price.setArea(area);
+        price.setStartDate(startDate);
+        price.setEndDate(endDate);
+        price.setCost(cost);
+        price.setStatus(status);
+        return priceRepository.save(price);
     }
 }

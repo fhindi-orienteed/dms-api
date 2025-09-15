@@ -33,16 +33,4 @@ public class PriceMapper {
     public List<WebPriceResponse> mapListToWebResponse(List<Price> priceList) {
         return priceList.stream().map(price -> mapToWebResponse(price)).toList();
     }
-
-    public Price mapUpdateRequestToPrice(UpdatePriceRequest request){
-        Price price = new Price();
-        price.setName(request.getName());
-        price.setCountry(request.getCountry());
-        price.setCity(request.getCity());
-        price.setStartDate(request.getStartDate());
-        price.setEndDate(request.getEndDate());
-        price.setCost(request.getCost());
-        price.setStatus(request.getStatus());
-        return price;
-    }
 }

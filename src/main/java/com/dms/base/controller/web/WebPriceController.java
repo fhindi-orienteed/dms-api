@@ -56,19 +56,14 @@ public class WebPriceController extends PriceController {
         return ResponseEntity.ok(priceMapper.mapToWebResponse(priceService.createNewPrice(request)));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<WebPriceResponse> updatePrice(@PathVariable long id, @RequestBody UpdatePriceRequest request) {
-        Price existPrice = priceService.getPrice(id);
-        
-        if (existPrice == null) {
-            throw new ObjectNotFoundException("Price with id" + id + "not found");
-        }
-        
-        Price mappedPrice = priceMapper.mapUpdateRequestToPrice(request);
-        Price updatedPrice = priceService.updatePrice(existPrice,mappedPrice);
-        WebPriceResponse response = priceMapper.mapToWebResponse(updatedPrice);
-        response.setId(updatedPrice.getId());
-        response.setIsDefault(updatedPrice.getIsDefault() == 1); 
-        return ResponseEntity.ok(response);
+    @PutMapping("/{id}/update")
+    public ResponseEntity<WebPriceResponse> updatePrice(@PathVariable long id,
+            @RequestBody UpdatePriceRequest request) {
+
+        Price price = priceService.updatePrice(id, request.getName(), request.getCountry(), request.getCity(),
+                request.getArea(), request.getStartDate(), request.getEndDate(), request.getCost(),
+                request.getStatus());
+
+        return ResponseEntity.ok(priceMapper.mapToWebResponse(price));
     }
 }

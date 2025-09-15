@@ -50,6 +50,6 @@ public class WebAreaController extends AreaController {
     public ResponseEntity<AreaResponse> createNewArea(@RequestBody CreateNewAreaRequest req) {
         Area area = areaService.createNewArea(req.getName(), req.getCode(), req.getCountry(), req.getCity(),
                 req.getLatitude(), req.getLongitude());
-        return ResponseEntity.ok(areaMapper.mapToAreaResponse(area));
+        return ResponseEntity.ok(areaMapper.mapToWebResponse(area));
     }
 }

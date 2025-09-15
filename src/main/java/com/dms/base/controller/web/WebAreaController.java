@@ -18,7 +18,7 @@ import com.dms.base.dto.request.web.CreateNewAreaRequest;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.model.Area;
 
-import org.springframework.web.bind.annotation.RequestBody; 
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -47,10 +47,9 @@ public class WebAreaController extends AreaController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<AreaResponse> createNewArea(@RequestBody CreateNewAreaRequest newArea){
-        Area mappedArea = areaMapper.mapRequestToArea(newArea);
-        Area area = areaService.createNewArea(mappedArea);
-        AreaResponse response = areaMapper.mapToAreaResponse(area);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<AreaResponse> createNewArea(@RequestBody CreateNewAreaRequest req) {
+        Area area = areaService.createNewArea(req.getName(), req.getCode(), req.getCountry(), req.getCity(),
+                req.getLatitude(), req.getLongitude());
+        return ResponseEntity.ok(areaMapper.mapToAreaResponse(area));
     }
 }

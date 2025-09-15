@@ -8,8 +8,12 @@ public class CreateNewAreaRequest {
     private String latitude;
     private String longitude;
 
-    public CreateNewAreaRequest() {
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {
@@ -20,14 +24,6 @@ public class CreateNewAreaRequest {
         this.code = code;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -36,12 +32,12 @@ public class CreateNewAreaRequest {
         this.country = country;
     }
 
-    public String getName() {
-        return name;
+    public String getCity() {
+        return city;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getLatitude() {

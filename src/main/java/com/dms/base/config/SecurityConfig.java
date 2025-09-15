@@ -32,6 +32,7 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             // Auth Controller
+            "/",
             "/v1/web/auth/login",
             "/v1/mobile/auth/login",
             "/v1/public/**",

@@ -1,10 +1,8 @@
 package com.dms.base.service;
 
-<<<<<<<HEAD
-
-import org.springframework.security.core.context.SecurityContextHolder;=======
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;>>>>>>>origin/main
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dms.base.config.CustomUserDetails;

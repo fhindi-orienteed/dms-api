@@ -16,7 +16,7 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    public CompanyService(CompanyRepository companyRepository ) {
+    public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
 
@@ -41,21 +41,22 @@ public class CompanyService {
     public Company getCurrentCompany() {
 
         CustomUserDetails currentUser = (CustomUserDetails) SecurityContextHolder.getContext()
-            .getAuthentication().getPrincipal();
+                .getAuthentication().getPrincipal();
 
         boolean isAdmin = currentUser.getAuthorities().stream()
-            .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
 
         boolean isMerchant = currentUser.getAuthorities().stream()
-            .anyMatch(auth -> auth.getAuthority().equals("ROLE_MERCHANT"));
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_MERCHANT"));
 
-    if (!isAdmin && !isMerchant) {
-        throw new AccessDeniedException("You are not allowed to access this resource");
+        if (!isAdmin && !isMerchant) {
+            throw new AccessDeniedException("You are not allowed to access this resource");
+        }
+
+        Long companyId = currentUser.getCompanyId();
+
+        return companyRepository.findById(companyId)
+                .orElseThrow(() -> new EntityNotFoundException("Company not found"));
     }
-
-    Long companyId = currentUser.getCompanyId(); 
-    return companyRepository.findById(companyId)
-            .orElseThrow(() -> new EntityNotFoundException("Company not found"));
-}
 
 }

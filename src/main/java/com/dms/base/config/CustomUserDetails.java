@@ -1,48 +1,53 @@
 package com.dms.base.config;
 
-import com.dms.base.model.User;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import com.dms.base.model.CompanyUser;
+import com.dms.base.model.User;
+import com.dms.base.util.Constant;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final Long id;
-    private final String username;
-    private final String password;
-    private final Collection<? extends GrantedAuthority> authorities;
-    private final Long companyId;
+    private User user;
+    private CompanyUser companyUser;
 
-    public CustomUserDetails(User user, Collection<? extends GrantedAuthority> authorities) {
-        this.id = user.getId();
-        this.username = user.getUserName();
-        this.password = user.getPassword();
-        this.companyId = user.getCompanyId(); 
-        this.authorities = authorities;
+    public CustomUserDetails(User user, CompanyUser companyUser) {
+        this.user = user;
+        this.companyUser = companyUser;
+    }
+
+    public CustomUserDetails(User user) {
+        this.user = user;
     }
 
     public Long getId() {
-        return id;
+        return user.getId();
     }
 
     public Long getCompanyId() {
-        return companyId;
+        return companyUser.getCompanyId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getUserName();
     }
 
     @Override
@@ -62,6 +67,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.getStatus() == Constant.USER_STATUS_ENEABLED;
     }
 }

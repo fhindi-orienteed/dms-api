@@ -1,21 +1,27 @@
 package com.dms.base.controller.web;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
-
+import java.util.Optional;
+import org.apache.catalina.connector.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.PriceController;
 import com.dms.base.dto.request.web.CreateNewPriceRequest;
+import com.dms.base.dto.request.web.UpdatePriceRequest;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.web.WebPriceResponse;
+import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Price;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,7 +53,17 @@ public class WebPriceController extends PriceController {
 
     @PostMapping("/new")
     public ResponseEntity<WebPriceResponse> createPrice(@RequestBody CreateNewPriceRequest request) {
-        priceService.createNewPrice(request);
-        return ResponseEntity.ok(priceMapper.mapToWebResponse(null));
+        return ResponseEntity.ok(priceMapper.mapToWebResponse(priceService.createNewPrice(request)));
+    }
+
+    @PutMapping("/{id}/update")
+    public ResponseEntity<WebPriceResponse> updatePrice(@PathVariable long id,
+            @RequestBody UpdatePriceRequest request) {
+
+        Price price = priceService.updatePrice(id, request.getName(), request.getCountry(), request.getCity(),
+                request.getArea(), request.getStartDate(), request.getEndDate(), request.getCost(),
+                request.getStatus());
+
+        return ResponseEntity.ok(priceMapper.mapToWebResponse(price));
     }
 }

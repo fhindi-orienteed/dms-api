@@ -2,8 +2,10 @@ package com.dms.base.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.dms.base.config.CustomUserDetails;
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
 
@@ -38,8 +40,17 @@ public class CompanyService {
         return companyRepository.findAll(pageable);
     }
 
+    public Long getCurrentCompanyId() {
+        CustomUserDetails currentUser = (CustomUserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return currentUser.getCompanyId();
+    }
+
     public Company getCurrentCompany() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCurrentCompany'");
+        Long compnayId = getCurrentCompanyId();
+        if (compnayId != null) {
+            return companyRepository.findById(compnayId).orElse(null);
+        }
+        return null;
     }
 }

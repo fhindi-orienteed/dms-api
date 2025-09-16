@@ -1,4 +1,5 @@
 package com.dms.base.dto;
+
 import java.util.Date;
 
 public class PackageDTO {
@@ -24,10 +25,8 @@ public class PackageDTO {
     private boolean needPackaging;
     private boolean needCooling;
 
-
     public PackageDTO() {
     }
-
 
     public String getCustomerNote() {
         return customerNote;
@@ -69,7 +68,6 @@ public class PackageDTO {
         this.referenceNumber = referenceNumber;
     }
 
-
     public String getServiceType() {
         return serviceType;
     }
@@ -85,7 +83,6 @@ public class PackageDTO {
     public void setPackageType(String packageType) {
         this.packageType = packageType;
     }
-
 
     public String getCustomerName() {
         return customerName;
@@ -151,7 +148,6 @@ public class PackageDTO {
         this.deliveryDate = deliveryDate;
     }
 
-
     public String getDeliveryNote() {
         return deliveryNote;
     }
@@ -159,7 +155,6 @@ public class PackageDTO {
     public void setDeliveryNote(String deliveryNote) {
         this.deliveryNote = deliveryNote;
     }
-
 
     public boolean isAllowOpen() {
         return allowOpen;

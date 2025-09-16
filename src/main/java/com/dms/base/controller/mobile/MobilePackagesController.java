@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dms.base.controller.common.PackagesController;
 import com.dms.base.dto.request.mobile.MobilePackageRequest;
 import com.dms.base.dto.request.mobile.MobileSearchPackageRequest;
-import com.dms.base.dto.request.mobile.MobileUpdateRequestPackage;
+import com.dms.base.dto.request.mobile.MobileUpdatePackageRequest;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.mobile.MobilePackageResponse;
 import com.dms.base.mapper.MobilePackageMapper;
-import com.dms.base.model.PackageUpdateRequest;
 import com.dms.base.model.Packages;
 import com.dms.base.service.PackageUpdateRequestService;
 
@@ -77,8 +76,8 @@ public class MobilePackagesController extends PackagesController {
     }
 
     @PostMapping("/{id}/update")
-    public ResponseEntity<?> updatePackage(@PathVariable long id,@RequestBody MobileUpdateRequestPackage request) {
-        packageUpdateRequestService.createNewRequest(id, request.getDataJson());
+    public ResponseEntity<?> updatePackage(@PathVariable long id, @RequestBody MobileUpdatePackageRequest request) {
+        packageUpdateRequestService.createNewRequest(id, request);
         return ResponseEntity.ok(null);
     }
 }

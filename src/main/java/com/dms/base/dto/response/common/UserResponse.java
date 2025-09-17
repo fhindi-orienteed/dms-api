@@ -9,7 +9,7 @@ public class UserResponse {
     private Integer status;
     private String role;
     private Integer passwordRetries;
-    private Integer passwordExpired;
+    private boolean passwordExpired;
     private Integer passwordCreation;
     private Integer timeout;
     private Date lastSession;
@@ -62,11 +62,11 @@ public class UserResponse {
         this.passwordRetries = passwordRetries;
     }
 
-    public Integer getPasswordExpired() {
+    public boolean getPasswordExpired() {
         return passwordExpired;
     }
 
-    public void setPasswordExpired(Integer passwordExpired) {
+    public void setPasswordExpired(boolean passwordExpired) {
         this.passwordExpired = passwordExpired;
     }
 

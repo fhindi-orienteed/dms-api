@@ -31,16 +31,42 @@ public class SecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            // Auth Controller
-            "/",
-            "/v1/web/auth/login",
-            "/v1/mobile/auth/login",
-            "/v1/public/**",
-            // Swagger
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/swagger-ui.html",
-            "/swagger-resources/**",
+        // Auth endpoints
+        "/v1/web/auth/login",
+        "/v1/mobile/auth/login",
+        
+        // Public endpoints
+        "/v1/public/**",
+        
+        // Web area endpoints
+        "/v1/web/area/list",
+        "/v1/web/area/new",
+        // Web company endpoints
+        "/v1/web/company/current",
+        "/v1/web/company/new",
+        
+        // Web price endpoints
+        "/v1/web/price/list",
+        "/v1/web/price/new",
+        "/v1/web/price/update/**",
+
+        // Web users endpoints
+        "/v1/web/users/current",
+        "/v1/web/users/new",
+
+        // Mobile packages endpoints
+        "/v1/mobile/packages/new",
+        "/v1/mobile/packages/update/**", // Use ** to match any path after update/
+        
+        // Mobile user endpoints
+        "/v1/mobile/user/current",
+        "/v1/mobile/user/profile",
+        
+        // Swagger documentation
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/swagger-resources/**"
     };
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {

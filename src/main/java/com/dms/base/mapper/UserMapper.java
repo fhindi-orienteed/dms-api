@@ -21,6 +21,12 @@ public class UserMapper {
         res.setId(user.getId());
         res.setCreatedDate(user.getCreatedDate());
         res.setUserName(user.getUserName());
+        res.setStatus(user.getStatus());
+        res.setRole(user.getRole());
+        res.setPasswordRetries(user.getPasswordRetries());
+        res.setPasswordExpired(user.isPasswordExpired());
+        res.setTimeout(user.getTimeout());
+        res.setLastSession(user.getLastSession());
         return res;
     }
 

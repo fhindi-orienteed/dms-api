@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import com.dms.base.dto.response.mobile.MobileCompanyResponse;
 import com.dms.base.dto.response.web.WebCompanyResponse;
 import com.dms.base.model.Company;
+import com.dms.base.model.User;
 
 @Component
 public class CompanyMapper {
@@ -28,6 +30,32 @@ public class CompanyMapper {
         res.setStatus(company.getStatus());
         res.setCreatedDate(company.getCreatedDate());
         return res;
+    }
+    
+    public MobileCompanyResponse mapToMobileResponse(Company company){
+        MobileCompanyResponse res = new MobileCompanyResponse();
+        res.setCompanyId(company.getId());
+        res.setName(company.getName());
+        res.setCountry(company.getCountry());
+        res.setCity(company.getCity());
+        res.setAddress(company.getAddress());
+        res.setEmail(company.getEmail());
+        res.setPhone(company.getPhone());
+        res.setMobile(company.getMobile());
+        res.setFacebook(company.getFacebook());
+        res.setInstegram(company.getInstegram());
+        res.setRegistrationNumber(company.getRegistrationNumber());
+        res.setCompanyStatus(company.getStatus());
+        res.setCreatedDate(company.getCreatedDate());
+        return res;
+    }
+
+    public MobileCompanyResponse mapToMobileResponse(Company company,User user){
+        MobileCompanyResponse response = mapToMobileResponse(company);
+        response.setId(user.getId());
+        response.setRole(user.getRole());
+        response.setUserName(user.getUserName());
+        return response;
     }
 
     public List<WebCompanyResponse> mapToWebResponse(Page<Company> list) {

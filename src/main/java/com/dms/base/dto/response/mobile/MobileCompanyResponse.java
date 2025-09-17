@@ -1,20 +1,9 @@
-package com.dms.base.model;
+package com.dms.base.dto.response.mobile;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "companies")
-public class Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private long userId;
+public class MobileCompanyResponse extends MobileUserResponse {
+    private Long companyId;
     private Date createdDate;
     private String name;
     private String country;
@@ -26,23 +15,14 @@ public class Company {
     private String facebook;
     private String instegram;
     private String registrationNumber;
-    private String status;
+    private String companyStatus;
 
-    public Long getId() {
-        return id;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long id) {
-        this.id = userId;
+    public void setCompanyId(Long id) {
+        this.companyId = id;
     }
 
     public Date getCreatedDate() {
@@ -133,11 +113,12 @@ public class Company {
         this.registrationNumber = registrationNumber;
     }
 
-    public String getStatus() {
-        return status;
+
+    public void setCompanyStatus(String companyStatus) {
+        this.companyStatus = companyStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getCompanyStatus(){
+        return companyStatus;
     }
 }

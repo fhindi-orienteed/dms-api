@@ -50,6 +50,7 @@ public class AuthService {
         WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
 
         response.setExpiresIn(webExpiration);
+
         return response;
     }
 

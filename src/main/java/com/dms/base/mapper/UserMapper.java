@@ -13,9 +13,11 @@ public class UserMapper {
         MobileUserResponse res = new MobileUserResponse();
         res.setId(user.getId());
         res.setCreatedDate(user.getCreatedDate());
+        res.setLastSession(user.getLastSession());
         res.setUserName(user.getUserName());
         res.setRole(user.getRole());
         res.setStatus(user.getStatus());
+
         return res;
     }
 
@@ -23,6 +25,7 @@ public class UserMapper {
         WebUserResponse res = new WebUserResponse();
         res.setId(user.getId());
         res.setCreatedDate(user.getCreatedDate());
+        res.setLastSession(user.getLastSession());
         res.setUserName(user.getUserName());
         res.setRole(user.getRole());
         res.setStatus(user.getStatus());

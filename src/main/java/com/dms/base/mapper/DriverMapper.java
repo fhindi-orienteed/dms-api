@@ -22,11 +22,6 @@ public class DriverMapper {
 
     public WebDriverResponse mapToWebResponse(Driver driver, User user) {
         WebDriverResponse response = mapToWebResponse(driver);
-
-        response.setId(user.getId());
-        response.setRole(user.getRole());
-        response.setUserName(user.getUserName());
-
         response.setDriverId(driver.getId());
         response.setName(driver.getName());
         response.setAddress(driver.getAddress());
@@ -46,12 +41,5 @@ public class DriverMapper {
         response.setRating(driver.getRating());
         return response;
     }
-    
-    public MobileDriverResponse mapToMobileResponse(Driver driver, User user) {
-        MobileDriverResponse response = mapToMobileResponse(driver);
-        response.setId(user.getId());
-        response.setRole(user.getRole());
-        response.setUserName(user.getUserName());
-        return response;
-    }
+
 }

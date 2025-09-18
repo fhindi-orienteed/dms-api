@@ -14,7 +14,6 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private long userId;
     private Date createdDate;
     private String name;
     private String country;
@@ -34,15 +33,6 @@ public class Company {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long id) {
-        this.id = userId;
     }
 
     public Date getCreatedDate() {

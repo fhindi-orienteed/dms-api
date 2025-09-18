@@ -1,7 +1,7 @@
 package com.dms.base.dto.response.mobile;
 
-import com.dms.base.dto.response.web.WebDriverResponse;
+import com.dms.base.dto.response.common.DriverResponse;
 
-public class MobileDriverResponse extends WebDriverResponse {
-    
+public class MobileDriverResponse extends DriverResponse {
+
 }

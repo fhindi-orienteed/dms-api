@@ -15,7 +15,7 @@ public class CompanyMapper {
 
     public WebCompanyResponse mapToWebResponse(Company company) {
         WebCompanyResponse res = new WebCompanyResponse();
-        
+
         res.setId(company.getId());
         res.setName(company.getName());
         res.setCountry(company.getCountry());
@@ -31,10 +31,10 @@ public class CompanyMapper {
         res.setCreatedDate(company.getCreatedDate());
         return res;
     }
-    
-    public MobileCompanyResponse mapToMobileResponse(Company company){
+
+    public MobileCompanyResponse mapToMobileResponse(Company company) {
         MobileCompanyResponse res = new MobileCompanyResponse();
-        res.setCompanyId(company.getId());
+        res.setId(company.getId());
         res.setName(company.getName());
         res.setCountry(company.getCountry());
         res.setCity(company.getCity());
@@ -45,17 +45,9 @@ public class CompanyMapper {
         res.setFacebook(company.getFacebook());
         res.setInstegram(company.getInstegram());
         res.setRegistrationNumber(company.getRegistrationNumber());
-        res.setCompanyStatus(company.getStatus());
+        res.setStatus(company.getStatus());
         res.setCreatedDate(company.getCreatedDate());
         return res;
-    }
-
-    public MobileCompanyResponse mapToMobileResponse(Company company,User user){
-        MobileCompanyResponse response = mapToMobileResponse(company);
-        response.setId(user.getId());
-        response.setRole(user.getRole());
-        response.setUserName(user.getUserName());
-        return response;
     }
 
     public List<WebCompanyResponse> mapToWebResponse(Page<Company> list) {

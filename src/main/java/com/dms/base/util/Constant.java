@@ -15,4 +15,11 @@ public class Constant {
         ROLE_COMPANY_ADMIN,
         ROLE_COMPANY_USER,
     }
+
+    public enum UpdateRequestStatus {
+        APPROVE,
+        REJECT,
+        PENDING,
+        PENDING_REVIEW
+    }
 }

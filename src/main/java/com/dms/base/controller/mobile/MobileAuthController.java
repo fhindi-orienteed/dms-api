@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import com.dms.base.exception.InvalidCredentialsException;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
-import com.dms.base.dto.response.LoginResponse;
+import com.dms.base.dto.response.common.LoginResponse;
 
 @RestController
 @RequestMapping("/v1/mobile/auth")

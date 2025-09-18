@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.dms.base.dto.response.LoginResponse;
+import com.dms.base.dto.response.mobile.MobileLoginResponse;
+import com.dms.base.dto.response.web.WebLoginResponse;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.exception.InvalidCredentialsException;
 import com.dms.base.mapper.UserMapper;
@@ -33,7 +34,7 @@ public class AuthService {
         this.jwtUtility = jwtUtility;
     }
 
-    public LoginResponse webLogin(String userName, String password) {
+    public WebLoginResponse webLogin(String userName, String password) {
         User user = userRepository.findByUserName(userName).orElseThrow(InvalidCredentialsException::new);
 
         if (Constant.USER_STATUS_DISABLED == user.getStatus()) {
@@ -46,13 +47,13 @@ public class AuthService {
 
         String accessToken = jwtUtility.generateWebAccessToken(user);
 
-        LoginResponse response = new LoginResponse(accessToken, userMapper.mapUserLoginResponse(user));
+        WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
 
         response.setExpiresIn(webExpiration);
         return response;
     }
 
-    public LoginResponse mobileLogin(String userName, String password) {
+    public MobileLoginResponse mobileLogin(String userName, String password) {
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(InvalidCredentialsException::new);
 
@@ -66,6 +67,6 @@ public class AuthService {
 
         String accessToken = jwtUtility.generateMobileAccessToken(user);
 
-        return new LoginResponse(accessToken, userMapper.mapUserLoginResponse(user));
+        return new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
     }
 }

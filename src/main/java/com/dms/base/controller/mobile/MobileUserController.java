@@ -1,12 +1,29 @@
 package com.dms.base.controller.mobile;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.UserController;
+import com.dms.base.dto.response.mobile.MobileCompanyResponse;
+import com.dms.base.dto.response.mobile.MobileDriverResponse;
+import com.dms.base.dto.response.mobile.MobileUserResponse;
+import com.dms.base.exception.ObjectNotFoundException;
+import com.dms.base.mapper.CompanyMapper;
+import com.dms.base.mapper.DriverMapper;
+import com.dms.base.model.Company;
+import com.dms.base.model.CompanyUser;
+import com.dms.base.model.Driver;
 import com.dms.base.model.User;
+import com.dms.base.service.CompanyService;
+import com.dms.base.service.CompanyUserService;
+import com.dms.base.service.DriverService;
+import com.dms.base.util.Constant.RoleType;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -14,10 +31,52 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/v1/mobile/user")
 @Tag(name = "Users API", description = "These services provide APIs related to logged in user DMS Mobile Application.")
 public class MobileUserController extends UserController {
+    @Autowired
+    private DriverService driverService;
+
+    @Autowired
+    private DriverMapper driverMapper;
+
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private CompanyUserService companyUserService;
 
     @GetMapping("/current")
     public ResponseEntity<?> getCurrentUser() {
         User user = userService.getCurrentUser();
         return ResponseEntity.ok(userMapper.mapToMobileResponse(user));
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserProfile() {
+        User user = userService.getCurrentUser();
+        MobileUserResponse userResponse = userMapper.mapToMobileResponse(user);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", userResponse);
+
+        if (user.getRole().equals(RoleType.ROLE_DRIVER.name())) {
+            Driver driver = driverService.findByUserId(user.getId());
+            if (driver == null) {
+                throw new ObjectNotFoundException("Driver with user Id " + user.getId() + " not Found");
+            }
+            MobileDriverResponse driverResponse = driverMapper.mapToMobileResponse(driver);
+            response.put("driver", driverResponse);
+            
+        } else if (user.getRole().equals(RoleType.ROLE_COMPANY_USER.name())
+                || user.getRole().equals(RoleType.ROLE_COMPANY_ADMIN.name())) {
+            CompanyUser companyUser = companyUserService.findByUserId(user.getId());
+            Company company = companyService.findByCompanyId(companyUser.getCompanyId());
+            MobileCompanyResponse companyResponse = companyMapper.mapToMobileResponse(company);
+            response.put("company", companyResponse);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
 }

@@ -53,4 +53,9 @@ public class CompanyService {
         }
         return null;
     }
+
+    public Company findByCompanyId(long id) {
+        Company company = companyRepository.findById(id).orElse(null);
+        return company;
+    }
 }

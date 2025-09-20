@@ -22,4 +22,12 @@ public class Constant {
         PENDING,
         PENDING_REVIEW
     }
+
+    public enum ShippingStatus {
+        NEW,
+        SHIPPED,
+        DELIVERED,
+        RETURNED,
+        CANCELED
+    }
 }

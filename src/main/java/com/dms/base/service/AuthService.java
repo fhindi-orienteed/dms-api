@@ -1,5 +1,7 @@
 package com.dms.base.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,9 +48,11 @@ public class AuthService {
         }
 
         String accessToken = jwtUtility.generateWebAccessToken(user);
-
+        Date date = new Date();
+        user.setLastSession(date);
+        userRepository.save(user);
         WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
-
+        response.getUser().setLastSession(date);
         response.setExpiresIn(webExpiration);
 
         return response;
@@ -67,7 +71,11 @@ public class AuthService {
         }
 
         String accessToken = jwtUtility.generateMobileAccessToken(user);
-
-        return new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
+        Date date = new Date();
+        user.setLastSession(date);
+        userRepository.save(user);
+        MobileLoginResponse response = new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
+        response.getUser().setLastSession(date);
+        return response;
     }
 }

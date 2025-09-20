@@ -16,6 +16,7 @@ public class UserMapper {
         res.setUserName(user.getUserName());
         res.setRole(user.getRole());
         res.setStatus(user.getStatus());
+        res.setLastSession(user.getLastSession());
         return res;
     }
 
@@ -26,6 +27,7 @@ public class UserMapper {
         res.setUserName(user.getUserName());
         res.setRole(user.getRole());
         res.setStatus(user.getStatus());
+        res.setLastSession(user.getLastSession());
         return res;
     }
 }

@@ -1,5 +1,6 @@
 package com.dms.base.service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +47,10 @@ public class AuthService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new InvalidCredentialsException();
         }
-
         String accessToken = jwtUtility.generateWebAccessToken(user);
-        Date date = new Date();
-        user.setLastSession(date);
-        userRepository.save(user);
+
         WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
-        response.getUser().setLastSession(date);
+        updateLastSession(user);
         response.setExpiresIn(webExpiration);
 
         return response;
@@ -71,11 +69,13 @@ public class AuthService {
         }
 
         String accessToken = jwtUtility.generateMobileAccessToken(user);
-        Date date = new Date();
-        user.setLastSession(date);
-        userRepository.save(user);
+        updateLastSession(user);
         MobileLoginResponse response = new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
-        response.getUser().setLastSession(date);
         return response;
+    }
+
+    private void updateLastSession(User user){
+        user.setLastSession(LocalDateTime.now());
+        userRepository.save(user);
     }
 }

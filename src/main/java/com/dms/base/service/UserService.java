@@ -1,7 +1,6 @@
 package com.dms.base.service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -46,7 +45,7 @@ public class UserService {
         newUser.setUserName(username);
         newUser.setPassword(hashedPassword);
         newUser.setRole(role);
-        newUser.setCreatedDate(new Date());
+        newUser.setCreatedDate(LocalDateTime.now());
         newUser.setStatus(Constant.USER_STATUS_ENEABLED);
         newUser.setPasswordRetries(0);
         newUser.setPasswordExpired(false);

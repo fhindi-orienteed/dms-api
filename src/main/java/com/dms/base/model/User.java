@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private String userName;
     private String password;
     private Integer status;
@@ -25,7 +25,7 @@ public class User {
     private LocalDateTime passwordCreation;
     private Integer timeout;
 
-    private Date lastSession;
+    private LocalDateTime lastSession;
 
     public User() {
     }
@@ -38,11 +38,11 @@ public class User {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -70,11 +70,11 @@ public class User {
         this.role = role;
     }
 
-    public Date getLastSession() {
+    public LocalDateTime getLastSession() {
         return lastSession;
     }
 
-    public void setLastSession(Date lastSession) {
+    public void setLastSession(LocalDateTime lastSession) {
         this.lastSession = lastSession;
     }
 

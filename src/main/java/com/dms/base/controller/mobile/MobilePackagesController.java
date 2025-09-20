@@ -1,5 +1,8 @@
 package com.dms.base.controller.mobile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +25,7 @@ import com.dms.base.dto.response.mobile.MobilePackageResponse;
 import com.dms.base.mapper.MobilePackageMapper;
 import com.dms.base.model.Packages;
 import com.dms.base.service.PackageUpdateRequestService;
+import com.dms.base.util.Constant.ShippingStatus;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -79,5 +83,22 @@ public class MobilePackagesController extends PackagesController {
     public ResponseEntity<?> updatePackage(@PathVariable long id, @RequestBody MobileUpdatePackageRequest request) {
         packageUpdateRequestService.createNewRequest(id, request);
         return ResponseEntity.ok(null);
+    }
+    
+    @GetMapping("/summary")
+    public ResponseEntity<?> getPackageSummaryByStatus() {
+        Map<String, Object> response = new HashMap<>();
+        for (ShippingStatus status : ShippingStatus.values()) {
+            Map<String, Object> statusDetails = new HashMap<>();
+
+            long count = packagesService.getCountOfPackagesByStatus(status.name());
+            Double totalAmount = packagesService.getSumPaymentAmountByStatus(status.name());
+
+            statusDetails.put("count", count);
+            statusDetails.put("totalAmount", totalAmount);
+
+            response.put(status.name(), statusDetails);
+        }
+        return ResponseEntity.ok(response);
     }
 }

@@ -11,4 +11,6 @@ import com.dms.base.model.Packages;
 @Repository
 public interface PackagesRepository extends JpaRepository<Packages, Long>, JpaSpecificationExecutor<Packages> {
     Optional<Packages> findByUuid(String uuid);
+
+    long countByShippingStatus(String status);
 }

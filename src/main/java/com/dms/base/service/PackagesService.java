@@ -1,5 +1,6 @@
 package com.dms.base.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -46,5 +47,15 @@ public class PackagesService {
 
     public Page<Packages> getPackagesList(Pageable pageable) {
         return packagesRepository.findAll(pageable);
+    }
+
+    public long getCountOfPackagesByStatus(String status) {
+        return packagesRepository.countByShippingStatus(status);
+    }
+
+    public Double getSumPaymentAmountByStatus(String status) {
+        Specification<Packages> spec = (root, query, cb) -> cb.equal(root.get("shippingStatus"), status);
+        List<Packages> packages = packagesRepository.findAll(spec);
+        return packages.stream().mapToDouble(Packages::getPaymentAmount).sum();
     }
 }

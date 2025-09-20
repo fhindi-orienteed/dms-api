@@ -1,7 +1,10 @@
 package com.dms.base.controller.mobile;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -84,20 +87,24 @@ public class MobilePackagesController extends PackagesController {
         packageUpdateRequestService.createNewRequest(id, request);
         return ResponseEntity.ok(null);
     }
-    
+
     @GetMapping("/summary")
     public ResponseEntity<?> getPackageSummaryByStatus() {
+        List<Packages> packages = packagesService.getAllPackages();
+
+        Map<String, List<Packages>> packagesByStatus = packages.stream()
+                .collect(Collectors.groupingBy(Packages::getShippingStatus));
         Map<String, Object> response = new HashMap<>();
+
         for (ShippingStatus status : ShippingStatus.values()) {
+            String statusName = status.name();
+            List<Packages> statusPackages = packagesByStatus.getOrDefault(statusName, Collections.emptyList());
+            long count = statusPackages.size();
+            double totalAmount = statusPackages.stream().mapToDouble(p -> p.getPaymentAmount()).sum();
             Map<String, Object> statusDetails = new HashMap<>();
-
-            long count = packagesService.getCountOfPackagesByStatus(status.name());
-            Double totalAmount = packagesService.getSumPaymentAmountByStatus(status.name());
-
             statusDetails.put("count", count);
-            statusDetails.put("totalAmount", totalAmount);
-
-            response.put(status.name(), statusDetails);
+            statusDetails.put("collectionAmount", totalAmount);
+            response.put(statusName, statusDetails);
         }
         return ResponseEntity.ok(response);
     }

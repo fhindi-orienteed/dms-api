@@ -49,13 +49,7 @@ public class PackagesService {
         return packagesRepository.findAll(pageable);
     }
 
-    public long getCountOfPackagesByStatus(String status) {
-        return packagesRepository.countByShippingStatus(status);
-    }
-
-    public Double getSumPaymentAmountByStatus(String status) {
-        Specification<Packages> spec = (root, query, cb) -> cb.equal(root.get("shippingStatus"), status);
-        List<Packages> packages = packagesRepository.findAll(spec);
-        return packages.stream().mapToDouble(Packages::getPaymentAmount).sum();
+    public List<Packages> getAllPackages() {
+        return packagesRepository.findAll();
     }
 }

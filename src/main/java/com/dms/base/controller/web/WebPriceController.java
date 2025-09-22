@@ -23,7 +23,8 @@ import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.web.WebPriceResponse;
 import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Price;
-
+import com.dms.base.service.PriceService;
+import org.springframework.http.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -31,6 +32,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/v1/web/price")
 @Tag(name = "Price API", description = "This class provides RESTful services to get, add, update, or delete price list used by DMS Web Portal.")
 public class WebPriceController extends PriceController {
+
+    private final PriceService priceService;
+
+    WebPriceController(PriceService priceService) {
+        this.priceService = priceService;
+    }
 
     @GetMapping("/list")
     @Operation(summary = "Get Price List", description = "Returns a list for all price list defined in the system includs default price list")
@@ -66,4 +73,12 @@ public class WebPriceController extends PriceController {
 
         return ResponseEntity.ok(priceMapper.mapToWebResponse(price));
     }
+    
+    @PostMapping("/price/{id}/delete")
+    public ResponseEntity<String> deletePrice(@PathVariable("id") Long priceId) {
+        priceService.deletePriceById(priceId);
+        
+        return ResponseEntity.ok("Price with ID " + priceId + " has been deleted successfully.");
+    }
+    
 }

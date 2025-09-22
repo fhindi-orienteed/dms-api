@@ -81,4 +81,13 @@ public class PriceService {
         price.setStatus(status);
         return priceRepository.save(price);
     }
+
+    public void deletePriceById(Long id) {
+
+        if (!priceRepository.existsById(id)) {
+            throw new ObjectNotFoundException("Price with id " + id + " not found");
+        }
+        
+        priceRepository.deleteById(id);
+    }
 }

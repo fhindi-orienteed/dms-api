@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,11 +75,12 @@ public class WebPriceController extends PriceController {
         return ResponseEntity.ok(priceMapper.mapToWebResponse(price));
     }
     
-    @PostMapping("/price/{id}/delete")
-    public ResponseEntity<String> deletePrice(@PathVariable("id") Long priceId) {
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete Price", description = "Deletes a price by its unique ID")
+    public ResponseEntity<Void> deletePrice(@PathVariable("id") Long priceId) {
         priceService.deletePriceById(priceId);
         
-        return ResponseEntity.ok("Price with ID " + priceId + " has been deleted successfully.");
+        return ResponseEntity.noContent().build();
     }
     
 }

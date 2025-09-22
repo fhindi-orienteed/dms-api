@@ -1,5 +1,6 @@
 package com.dms.base.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -46,5 +47,9 @@ public class PackagesService {
 
     public Page<Packages> getPackagesList(Pageable pageable) {
         return packagesRepository.findAll(pageable);
+    }
+
+    public List<Packages> getAllPackages() {
+        return packagesRepository.findAll();
     }
 }

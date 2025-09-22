@@ -30,4 +30,11 @@ public class Constant {
         RETURNED,
         CANCELED
     }
+
+    public enum VerificationCodeStatus {
+        PENDING,        
+        VERIFIED,       
+        EXPIRED,               
+        CANCELLED     
+    }
 }

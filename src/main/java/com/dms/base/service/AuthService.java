@@ -1,5 +1,6 @@
 package com.dms.base.service;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,18 @@ public class AuthService {
         updateLastSession(user);
         MobileLoginResponse response = new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
         return response;
+    }
+
+    public String generateVerificationCode() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int index = random.nextInt(characters.length());
+            code.append(characters.charAt(index));
+        }
+
+        return code.toString();
     }
 
     private void updateLastSession(User user){

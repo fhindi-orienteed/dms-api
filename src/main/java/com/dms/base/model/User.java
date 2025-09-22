@@ -1,7 +1,6 @@
 package com.dms.base.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +16,8 @@ public class User {
     private Long id;
     private LocalDateTime createdDate;
     private String userName;
+    private String mobile;
+    private String email;
     private String password;
     private Integer status;
     private String role;
@@ -53,6 +54,23 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
 
     public String getPassword() {
         return password;

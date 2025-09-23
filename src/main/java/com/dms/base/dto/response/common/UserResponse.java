@@ -1,14 +1,14 @@
 package com.dms.base.dto.response.common;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class UserResponse {
     private Long id;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private String userName;
     private Integer status;
     private String role;
-    private Date lastSession;
+    private LocalDateTime lastSession;
 
     public Long getId() {
         return id;
@@ -18,11 +18,11 @@ public class UserResponse {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -50,11 +50,11 @@ public class UserResponse {
         this.role = role;
     }
 
-    public Date getLastSession() {
+    public LocalDateTime getLastSession() {
         return lastSession;
     }
 
-    public void setLastSession(Date lastSession) {
+    public void setLastSession(LocalDateTime lastSession) {
         this.lastSession = lastSession;
     }
 

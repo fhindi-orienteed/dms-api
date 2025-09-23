@@ -15,4 +15,8 @@ public class DriverService {
         driver.setUserId(userId);
         return driverRepository.save(driver);
     }
+
+    public Driver findByUserId(long userId) {
+        return driverRepository.findByUserId(userId);
+    }
 }

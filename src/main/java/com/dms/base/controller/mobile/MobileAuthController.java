@@ -14,6 +14,7 @@ import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Address;
 import com.dms.base.model.User;
 import com.dms.base.model.UserVerify;
+import com.dms.base.util.Constant;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
 import com.dms.base.dto.response.common.LoginResponse;
@@ -42,7 +43,7 @@ public class MobileAuthController extends AuthController {
     @PostMapping("/email-verify")
     public ResponseEntity<MobileVerifyEmailResponse> verifyEmail() {
         User currentUser = userService.getCurrentUser();
-        Address userAddress = addressService.findByUserId(currentUser.getId());
+        Address userAddress = addressService.findByUserIdAndType(currentUser.getId(),Constant.USER_ADDRESS);
         if (userAddress == null) {
             throw new ObjectNotFoundException("Address for user id " + currentUser.getId() + " not found");
         }

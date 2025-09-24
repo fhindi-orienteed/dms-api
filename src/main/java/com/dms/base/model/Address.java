@@ -17,7 +17,7 @@ public class Address {
     private String lastName;
     private String email;
     private String mobile;
-    private String status;
+    private String type;
 
 
     public long getId() {
@@ -68,11 +68,11 @@ public class Address {
         this.lastName = lastName;
     }
 
-    public String getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
     }
 }

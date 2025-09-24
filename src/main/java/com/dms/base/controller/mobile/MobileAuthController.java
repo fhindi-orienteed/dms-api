@@ -13,12 +13,10 @@ import com.dms.base.exception.InvalidCredentialsException;
 import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Address;
 import com.dms.base.model.User;
-import com.dms.base.model.UserVerify;
 import com.dms.base.util.Constant;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
 import com.dms.base.dto.response.common.LoginResponse;
-import com.dms.base.dto.response.mobile.MobileVerifyEmailResponse;
 
 @RestController
 @RequestMapping("/v1/mobile/auth")
@@ -41,14 +39,13 @@ public class MobileAuthController extends AuthController {
     }
 
     @PostMapping("/email-verify")
-    public ResponseEntity<MobileVerifyEmailResponse> verifyEmail() {
+    public ResponseEntity<?> verifyEmail() {
         User currentUser = userService.getCurrentUser();
         Address userAddress = addressService.findByUserIdAndType(currentUser.getId(),Constant.USER_ADDRESS);
         if (userAddress == null) {
             throw new ObjectNotFoundException("Address for user id " + currentUser.getId() + " not found");
         }
-        UserVerify newRecord = userVerifyService.verifyEmail(userAddress);
-        MobileVerifyEmailResponse response = userVerifyMapper.mapToMobileResponse(newRecord);
-        return ResponseEntity.ok(response);
+        userVerifyService.verifyEmail(userAddress);
+        return ResponseEntity.ok(null);
     }
 }

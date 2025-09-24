@@ -1,6 +1,5 @@
 package com.dms.base.controller.common;
 
-import com.dms.base.mapper.UserVerifyMapper;
 import com.dms.base.service.AddressService;
 import com.dms.base.service.AuthService;
 import com.dms.base.service.UserService;
@@ -17,9 +16,6 @@ public class AuthController {
     
     @Autowired
     protected UserVerifyService userVerifyService;
-
-    @Autowired
-    protected UserVerifyMapper userVerifyMapper;
 
     @Autowired
     protected AddressService addressService;

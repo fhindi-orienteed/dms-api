@@ -34,10 +34,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Price API", description = "This class provides RESTful services to get, add, update, or delete price list used by DMS Web Portal.")
 public class WebPriceController extends PriceController {
 
-    WebPriceController(PriceService priceService) {
-        this.priceService = priceService;
-    }
-
     @GetMapping("/list")
     @Operation(summary = "Get Price List", description = "Returns a list for all price list defined in the system includs default price list")
     public ResponseEntity<PaginatedResponse<WebPriceResponse>> getPriceList(

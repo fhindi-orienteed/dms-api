@@ -41,10 +41,7 @@ public class MobileAuthController extends AuthController {
     @PostMapping("/email-verify")
     public ResponseEntity<?> verifyEmail() {
         User currentUser = userService.getCurrentUser();
-        Address userAddress = addressService.findByUserIdAndType(currentUser.getId(),Constant.USER_ADDRESS);
-        if (userAddress == null) {
-            throw new ObjectNotFoundException("Address for user id " + currentUser.getId() + " not found");
-        }
+        Address userAddress = addressService.findProfiledAddress(currentUser.getId());
         userVerifyService.verifyEmail(userAddress);
         return ResponseEntity.ok(null);
     }

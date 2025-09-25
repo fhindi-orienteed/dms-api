@@ -24,7 +24,6 @@ import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.web.WebPriceResponse;
 import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Price;
-import com.dms.base.service.PriceService;
 import org.springframework.http.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -69,12 +68,12 @@ public class WebPriceController extends PriceController {
         return ResponseEntity.ok(priceMapper.mapToWebResponse(price));
     }
     
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Delete Price", description = "Deletes a price by its unique ID")
+    @PostMapping("/{id}/delete")
+    @Operation(summary = "Soft Delete Price", description = "Marks a price as inactive by its unique ID")
     public ResponseEntity<Void> deletePrice(@PathVariable("id") Long priceId) {
         priceService.deletePriceById(priceId);
         
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
     
 }

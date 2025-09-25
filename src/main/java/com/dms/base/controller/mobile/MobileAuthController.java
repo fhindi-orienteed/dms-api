@@ -16,6 +16,7 @@ import com.dms.base.model.User;
 import com.dms.base.util.Constant;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
+import com.dms.base.dto.request.mobile.MoblieVerifyEmailRequest;
 import com.dms.base.dto.response.common.LoginResponse;
 
 @RestController
@@ -39,9 +40,15 @@ public class MobileAuthController extends AuthController {
     }
 
     @PostMapping("/email-verify")
-    public ResponseEntity<?> verifyEmail() {
-        User currentUser = userService.getCurrentUser();
-        Address userAddress = addressService.findProfiledAddress(currentUser.getId());
+    public ResponseEntity<?> verifyEmail(@RequestBody MoblieVerifyEmailRequest request) {
+        User existUser = userService.getByUserName(request.getUserName());
+        if (existUser == null) {
+            return ResponseEntity.ok(null);
+        }
+        Address userAddress = addressService.findProfiledAddress(existUser.getId());
+        if (userAddress != null && userAddress .getEmail() != null) {
+            userVerifyService.verifyEmail(userAddress);
+        }
         userVerifyService.verifyEmail(userAddress);
         return ResponseEntity.ok(null);
     }

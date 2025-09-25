@@ -10,12 +10,11 @@ import java.util.Map;
 import com.dms.base.controller.common.AuthController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.dms.base.exception.InvalidCredentialsException;
-import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.model.Address;
 import com.dms.base.model.User;
-import com.dms.base.util.Constant;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
+import com.dms.base.dto.request.mobile.MobileResestPasswordResetRequest;
 import com.dms.base.dto.request.mobile.MoblieVerifyEmailRequest;
 import com.dms.base.dto.response.common.LoginResponse;
 
@@ -50,6 +49,16 @@ public class MobileAuthController extends AuthController {
             userVerifyService.verifyEmail(userAddress);
         }
         userVerifyService.verifyEmail(userAddress);
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/resest-password")
+    public ResponseEntity<?> resetPassword(@RequestBody MobileResestPasswordResetRequest request) {
+        User existUser = userService.getByUserName(request.getUserName());
+        if (existUser == null) {
+            return ResponseEntity.ok(null);
+        }
+        authService.resetPassword(request.getUserName());   // we can add new password in request body and pass it later
         return ResponseEntity.ok(null);
     }
 }

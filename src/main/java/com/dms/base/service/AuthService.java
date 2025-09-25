@@ -72,6 +72,18 @@ public class AuthService {
         MobileLoginResponse response = new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
         return response;
     }
+    
+    public void resetPassword(String userName) {
+        User existUser = userRepository.findByUserName(userName).orElse(null);
+        encodeNewPassword(existUser, "0000");
+
+    }
+
+    private void encodeNewPassword(User existUser, String newPassword) {
+        String password = passwordEncoder.encode(newPassword);
+        existUser.setPassword(password);
+        userRepository.save(existUser);
+    }
 
     private void updateLastSession(User user){
         user.setLastSession(LocalDateTime.now());

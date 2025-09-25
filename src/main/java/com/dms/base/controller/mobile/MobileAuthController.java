@@ -9,10 +9,14 @@ import org.springframework.http.HttpStatus;
 import java.util.Map;
 import com.dms.base.controller.common.AuthController;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import com.dms.base.exception.InvalidCredentialsException;
+import com.dms.base.exception.ObjectNotFoundException;
+import com.dms.base.model.Address;
+import com.dms.base.model.User;
+import com.dms.base.util.Constant;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
+import com.dms.base.dto.request.mobile.MoblieVerifyEmailRequest;
 import com.dms.base.dto.response.common.LoginResponse;
 
 @RestController
@@ -33,5 +37,19 @@ public class MobileAuthController extends AuthController {
                     .body(Map.of("error", "ACCOUNT_LOCKED", "message",
                             "Your account has been locked. Please contact support."));
         }
+    }
+
+    @PostMapping("/email-verify")
+    public ResponseEntity<?> verifyEmail(@RequestBody MoblieVerifyEmailRequest request) {
+        User existUser = userService.getByUserName(request.getUserName());
+        if (existUser == null) {
+            return ResponseEntity.ok(null);
+        }
+        Address userAddress = addressService.findProfiledAddress(existUser.getId());
+        if (userAddress != null && userAddress .getEmail() != null) {
+            userVerifyService.verifyEmail(userAddress);
+        }
+        userVerifyService.verifyEmail(userAddress);
+        return ResponseEntity.ok(null);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import java.util.Map;
 import com.dms.base.controller.common.AuthController;
@@ -45,7 +46,7 @@ public class MobileAuthController extends AuthController {
             return ResponseEntity.ok(null);
         }
         Address userAddress = addressService.findProfiledAddress(existUser.getId());
-        if (userAddress != null && userAddress .getEmail() != null) {
+        if (userAddress != null && userAddress.getEmail() != null) {
             userVerifyService.verifyEmail(userAddress);
         }
         userVerifyService.verifyEmail(userAddress);
@@ -58,7 +59,13 @@ public class MobileAuthController extends AuthController {
         if (existUser == null) {
             return ResponseEntity.ok(null);
         }
-        authService.resetPassword(request.getUserName());   // we can add new password in request body and pass it later
+        authService.resetPassword(request.getUserName()); // we can add new password in request body and pass it later
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        // Implementation here later
         return ResponseEntity.ok(null);
     }
 }

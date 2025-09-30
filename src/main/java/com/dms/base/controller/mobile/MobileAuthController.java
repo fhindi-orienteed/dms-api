@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import java.util.Map;
 import com.dms.base.controller.common.AuthController;
@@ -16,10 +15,11 @@ import com.dms.base.model.User;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
 import com.dms.base.dto.request.mobile.MobileResestPasswordResetRequest;
-import com.dms.base.dto.request.mobile.MobileRegisterRequest; 
+import com.dms.base.dto.request.mobile.MobileRegisterRequest;
 import com.dms.base.dto.response.mobile.MobileRegisterResponse;
 import com.dms.base.exception.UserAlreadyExistsException;
 import com.dms.base.dto.request.mobile.MoblieVerifyEmailRequest;
+import com.dms.base.dto.request.mobile.MoblieVerifyMobileNumberRequest;
 import com.dms.base.dto.response.common.LoginResponse;
 
 @RestController
@@ -40,6 +40,21 @@ public class MobileAuthController extends AuthController {
                     .body(Map.of("error", "ACCOUNT_LOCKED", "message",
                             "Your account has been locked. Please contact support."));
         }
+    }
+
+    @PostMapping("/mobile-verify")
+    public ResponseEntity<?> verifyMobile(@RequestBody MoblieVerifyMobileNumberRequest request) {
+        User existUser = userService.getByUserName(request.getUserName());
+        if (existUser == null) {
+            return ResponseEntity.ok(null);
+        }
+        Address userAddress = addressService.findProfiledAddress(existUser.getId());
+        if (userAddress != null && userAddress.getMobile() != null) {
+            userVerifyService.verifyMobile(userAddress);
+        }
+
+        userVerifyService.verifyMobile(userAddress);
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/email-verify")

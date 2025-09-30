@@ -35,6 +35,7 @@ public class SecurityConfig {
             "/",
             "/v1/web/auth/login",
             "/v1/mobile/auth/login",
+            "/v1/mobile/auth/register",
             "/v1/public/**",
             // Swagger
             "/v3/api-docs/**",

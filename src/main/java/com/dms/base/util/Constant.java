@@ -55,4 +55,30 @@ public class Constant {
         BILLING
     }
 
+    public enum EntityType {
+        PACKAGE,
+        DELIVERY,
+        USER,
+        ORDER,
+        INVOICE,
+        PAYMENT
+    }
+
+    public enum Priority {
+        LOW,
+        NORMAL,
+        HIGH
+    }
+
+    public enum NotificationType {
+        ACCOUNT,
+        PACKAGE,
+        DELIVERY_STATUS,
+        SYSTEM,
+        PAYMENT,
+        PROMOTION,
+        ALERT,
+        WARNING
+    }
+
 }

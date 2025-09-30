@@ -87,5 +87,15 @@ public class UserService {
     response.setPhone(savedUser.getPhone());
     
     return response;
- }
+   }
+
+   public void registerDeviceToken(String token) {
+    User currentUser = getCurrentUser();
+    if (currentUser != null) {
+        currentUser.setDeviceToken(token);
+        userRepository.save(currentUser);
+    } else {
+        throw new IllegalStateException("No authenticated user found to register device token.");
+    }
+}
 }

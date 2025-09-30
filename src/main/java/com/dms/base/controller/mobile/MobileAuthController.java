@@ -15,6 +15,9 @@ import com.dms.base.model.User;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.dto.request.LoginRequest;
 import com.dms.base.dto.request.mobile.MobileResestPasswordResetRequest;
+import com.dms.base.dto.request.mobile.MobileRegisterRequest; 
+import com.dms.base.dto.response.mobile.MobileRegisterResponse;
+import com.dms.base.exception.UserAlreadyExistsException;
 import com.dms.base.dto.request.mobile.MoblieVerifyEmailRequest;
 import com.dms.base.dto.response.common.LoginResponse;
 
@@ -60,5 +63,16 @@ public class MobileAuthController extends AuthController {
         }
         authService.resetPassword(request.getUserName());   // we can add new password in request body and pass it later
         return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody MobileRegisterRequest request) {
+        try {
+            MobileRegisterResponse response = userService.registerNewMobileUser(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "USER_ALREADY_EXISTS", "message", e.getMessage()));
+        }
     }
 }

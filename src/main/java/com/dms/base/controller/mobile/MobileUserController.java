@@ -25,6 +25,7 @@ import com.dms.base.model.Driver;
 import com.dms.base.model.User;
 import com.dms.base.service.CompanyService;
 import com.dms.base.service.CompanyUserService;
+import com.dms.base.service.DeviceTokenService;
 import com.dms.base.service.DriverService;
 import com.dms.base.util.Constant.RoleType;
 
@@ -49,6 +50,9 @@ public class MobileUserController extends UserController {
 
     @Autowired
     private CompanyUserService companyUserService;
+    
+    @Autowired
+    private DeviceTokenService deviceTokenService;
 
     @GetMapping("/current")
     public ResponseEntity<?> getCurrentUser() {
@@ -86,7 +90,7 @@ public class MobileUserController extends UserController {
     @PostMapping("/device-token")
     @Operation(summary = "Register Device Token", description = "Saves the mobile device's unique token for push notifications.")
     public ResponseEntity<Void> registerDeviceToken(@RequestBody RegisterDeviceTokenRequest request) {
-        userService.registerDeviceToken(request.getDeviceToken());
+        deviceTokenService.registerDeviceToken(request.getDeviceToken());
         return ResponseEntity.ok().build();
     }
 

@@ -32,8 +32,6 @@ public class User {
     private String phone;
     private boolean locked;
 
-    private String deviceToken;
-
     public User() {
     }
 
@@ -155,13 +153,5 @@ public class User {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
-    }
-
-    public String getDeviceToken() {
-        return deviceToken;
-    }
-
-    public void setDeviceToken(String deviceToken) {
-        this.deviceToken = deviceToken;
     }
 }

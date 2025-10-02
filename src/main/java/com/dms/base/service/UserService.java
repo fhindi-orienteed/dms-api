@@ -88,4 +88,35 @@ public class UserService {
     
     return response;
    }
+
+    public MobileRegisterResponse registerNewMobileMerchantUser(String name, String email, String phone, String password) {
+    
+        if (userRepository.existsByEmail(email)) {
+            throw new UserAlreadyExistsException("A user with this email already exists: " + email);
+        }
+        
+        User newUser = new User();
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setPhone(phone);
+
+        newUser.setPassword(passwordEncoder.encode(password));
+
+        newUser.setRole("ROLE_ADMIN"); 
+        newUser.setCreatedDate(LocalDateTime.now());
+        newUser.setStatus(Constant.USER_STATUS_ENEABLED);
+        newUser.setLocked(false);
+        newUser.setPasswordRetries(0);
+        newUser.setPasswordExpired(false);
+
+        User savedUser = userRepository.save(newUser);
+
+        MobileRegisterResponse response = new MobileRegisterResponse();
+        response.setId(savedUser.getId());
+        response.setName(savedUser.getName());
+        response.setEmail(savedUser.getEmail());
+        response.setPhone(savedUser.getPhone());
+        
+        return response;
+    }
 }

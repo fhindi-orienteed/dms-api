@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.UserController;
+import com.dms.base.dto.request.mobile.MobilMerchantUserRegisterRequest;
 import com.dms.base.dto.request.mobile.RegisterDeviceTokenRequest;
 import com.dms.base.dto.response.mobile.MobileCompanyResponse;
 import com.dms.base.dto.response.mobile.MobileDriverResponse;
+import com.dms.base.dto.response.mobile.MobileRegisterResponse;
 import com.dms.base.dto.response.mobile.MobileUserResponse;
 import com.dms.base.exception.ObjectNotFoundException;
+import com.dms.base.exception.UserAlreadyExistsException;
 import com.dms.base.mapper.CompanyMapper;
 import com.dms.base.mapper.DriverMapper;
 import com.dms.base.model.Company;
@@ -50,7 +54,7 @@ public class MobileUserController extends UserController {
 
     @Autowired
     private CompanyUserService companyUserService;
-    
+
     @Autowired
     private DeviceTokenService deviceTokenService;
 
@@ -64,7 +68,7 @@ public class MobileUserController extends UserController {
     public ResponseEntity<?> getUserProfile() {
         User user = userService.getCurrentUser();
         MobileUserResponse userResponse = userMapper.mapToMobileResponse(user);
-        
+
         Map<String, Object> response = new HashMap<>();
         response.put("user", userResponse);
 
@@ -75,7 +79,7 @@ public class MobileUserController extends UserController {
             }
             MobileDriverResponse driverResponse = driverMapper.mapToMobileResponse(driver);
             response.put("driver", driverResponse);
-            
+
         } else if (user.getRole().equals(RoleType.ROLE_COMPANY_USER.name())
                 || user.getRole().equals(RoleType.ROLE_COMPANY_ADMIN.name())) {
             CompanyUser companyUser = companyUserService.findByUserId(user.getId());
@@ -92,6 +96,18 @@ public class MobileUserController extends UserController {
     public ResponseEntity<Void> registerDeviceToken(@RequestBody RegisterDeviceTokenRequest request) {
         deviceTokenService.registerDeviceToken(request.getDeviceToken());
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(MobilMerchantUserRegisterRequest request) {
+        try {
+            MobileRegisterResponse response = userService.registerNewMobileMerchantUser(request.getName(),
+                    request.getEmail(), request.getPhone(), request.getPassword());
+            return ResponseEntity.ok(response);
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "USER_ALREADY_EXISTS", "message", e.getMessage()));
+        }
     }
 
 }

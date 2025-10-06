@@ -14,7 +14,7 @@ public class BranchService {
     private BranchRepository branchRepository;
 
     public List<Branch> listByCompanyId(long companyId) {
-        List<Branch> response = branchRepository.findByCompanyId(companyId);
+        List<Branch> response = branchRepository.findAllByCompanyId(companyId);
         return response;
     }
 }

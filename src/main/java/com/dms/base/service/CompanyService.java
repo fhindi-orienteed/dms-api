@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.dms.base.config.CustomUserDetails;
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
+import com.dms.base.util.Constant;
 
-import java.util.Date;
 import java.time.LocalDateTime;
 
 @Service
@@ -36,8 +36,8 @@ public class CompanyService {
         company.setInstegram(instegram);
         company.setRegistrationNumber(registrationNumber);
 
-        company.setCreatedDate(new Date());
-        company.setStatus("1");
+        company.setCreatedDate(LocalDateTime.now());
+        company.setStatus( Constant.STATUS_ACTIVE);
 
 
         return companyRepository.save(company);

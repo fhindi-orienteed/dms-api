@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BranchRepository extends JpaRepository<Branch,Long>{
-    List<Branch> findByCompanyId(long companyId);
+    List<Branch> findAllByCompanyId(long companyId);
 }

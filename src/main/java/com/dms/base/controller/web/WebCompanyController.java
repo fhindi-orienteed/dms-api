@@ -58,7 +58,7 @@ public class WebCompanyController extends CompanyController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/branch/list/{companyId}")
+    @GetMapping("/{companyId}/branch/list")
     public ResponseEntity<?> listCompanyBranch(@PathVariable long companyId) {
         List<Company> companies = companyService.listCompanyBranch(companyId);
         if (companies.isEmpty()) {

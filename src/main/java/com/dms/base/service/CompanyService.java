@@ -1,13 +1,17 @@
 package com.dms.base.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dms.base.config.CustomUserDetails;
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
+import com.dms.base.specification.CompanySpecification;
 
 @Service
 public class CompanyService {
@@ -57,5 +61,10 @@ public class CompanyService {
     public Company findByCompanyId(long id) {
         Company company = companyRepository.findById(id).orElse(null);
         return company;
+    }
+
+    public List<Company> listCompanyBranch(Long companyId) {
+        Specification<Company> spec = CompanySpecification.joinCompanyBranch(companyId); 
+        return companyRepository.findAll(spec);
     }
 }

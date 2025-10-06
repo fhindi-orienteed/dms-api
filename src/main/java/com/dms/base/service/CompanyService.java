@@ -9,6 +9,9 @@ import com.dms.base.config.CustomUserDetails;
 import com.dms.base.model.Company;
 import com.dms.base.repository.CompanyRepository;
 
+import java.util.Date;
+import java.time.LocalDateTime;
+
 @Service
 public class CompanyService {
 
@@ -32,6 +35,10 @@ public class CompanyService {
         company.setFacebook(facebook);
         company.setInstegram(instegram);
         company.setRegistrationNumber(registrationNumber);
+
+        company.setCreatedDate(new Date());
+        company.setStatus("1");
+
 
         return companyRepository.save(company);
     }

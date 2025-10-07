@@ -12,6 +12,7 @@ public class Constant {
     public static final Integer NUMBER_OF_MOBILE_VERIFICATION_DIGITS = 4;
     public static final Boolean BOOlEAN_OF_MOBILE_VERIFICATION = true;
     public static final String  USER_ADDRESS = "P";
+    public static final String STATUS_ACTIVE = "1";
     public enum RoleType {
         ROLE_ADMIN,
         ROLE_BRANCH_ADMIN,

@@ -1,10 +1,9 @@
 package com.dms.base.dto.response.common;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CompanyResponse {
     private Long id;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private String name;
     private String country;
     private String city;
@@ -25,11 +24,11 @@ public class CompanyResponse {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

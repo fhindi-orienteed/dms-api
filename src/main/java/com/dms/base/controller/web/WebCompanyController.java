@@ -87,7 +87,7 @@ public class WebCompanyController extends CompanyController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/users/new/{companyId}")
+    @PostMapping("/{companyId}/users/new")
     public ResponseEntity<?> createNewCompanyUser(@PathVariable long companyId,
             @RequestBody CreateNewCompanyUserRequest request) {
         WebUserResponse response = new WebUserResponse();

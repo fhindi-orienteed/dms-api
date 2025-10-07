@@ -91,7 +91,7 @@ public class WebCompanyController extends CompanyController {
     public ResponseEntity<?> createNewCompanyUser(@PathVariable long companyId,
             @RequestBody CreateNewCompanyUserRequest request) {
         WebUserResponse response = new WebUserResponse();
-        if (request.getType().equals(Constant.RoleType.ROLE_COMPANY_USER.name())) {
+        if (request.getType().equals(Constant.RoleType.ROLE_COMPANY_ADMIN.name())) {
             request.setBranchId(0);
         }
 

@@ -13,6 +13,7 @@ import com.dms.base.repository.UserRepository;
 import com.dms.base.util.Constant;
 import com.dms.base.dto.request.mobile.MobileRegisterRequest;
 import com.dms.base.dto.response.mobile.MobileRegisterResponse;
+import com.dms.base.dto.response.web.WebUserResponse;
 import com.dms.base.exception.UserAlreadyExistsException;
 
 @Service
@@ -117,6 +118,42 @@ public class UserService {
         response.setEmail(savedUser.getEmail());
         response.setPhone(savedUser.getPhone());
         
+        return response;
+    }
+
+
+    public WebUserResponse createNewCompanyUser(String name, String email, String phone, String password,
+            String role) {
+
+        if (userRepository.existsByEmail(email)) {
+            throw new UserAlreadyExistsException("A user with this email already exists: " + email);
+        }
+
+        User newUser = new User();
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setPhone(phone);
+
+        newUser.setPassword(passwordEncoder.encode(password));
+
+        newUser.setRole(role);
+        newUser.setCreatedDate(LocalDateTime.now());
+        newUser.setStatus(Constant.USER_STATUS_ENEABLED);
+        newUser.setLocked(false);
+        newUser.setPasswordRetries(0);
+        newUser.setPasswordExpired(false);
+
+        User savedUser = userRepository.save(newUser);
+
+        WebUserResponse response = new WebUserResponse();
+        response.setId(savedUser.getId());
+        response.setCreatedDate(savedUser.getCreatedDate());
+        response.setName(savedUser.getName());
+        response.setEmail(savedUser.getEmail());
+        response.setPhone(savedUser.getPhone());
+        response.setStatus(savedUser.getStatus());
+        response.setRole(savedUser.getRole());
+        response.setLastSession(savedUser.getLastSession());
         return response;
     }
 }

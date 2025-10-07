@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.CompanyController;
+import com.dms.base.dto.request.web.CreateNewCompanyUserRequest;
 import com.dms.base.dto.request.web.NewCompanyRequest;
 import com.dms.base.dto.response.PaginatedResponse;
 import com.dms.base.dto.response.web.WebBranchResponse;
 import com.dms.base.dto.response.web.WebCompanyResponse;
+import com.dms.base.dto.response.web.WebUserResponse;
 import com.dms.base.mapper.BranchMapper;
 import com.dms.base.model.Branch;
 import com.dms.base.model.Company;
+import com.dms.base.model.CompanyUser;
 import com.dms.base.service.BranchService;
+import com.dms.base.service.CompanyUserService;
+import com.dms.base.service.UserService;
+import com.dms.base.util.Constant;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -35,6 +41,11 @@ public class WebCompanyController extends CompanyController {
     private BranchService branchService;
     @Autowired
     private BranchMapper branchMapper;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CompanyUserService companyUserService;
+
     @GetMapping("/current")
     public ResponseEntity<WebCompanyResponse> getCurrentCompany() {
         Company company = companyService.getCurrentCompany();
@@ -75,4 +86,23 @@ public class WebCompanyController extends CompanyController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/users/new/{companyId}")
+    public ResponseEntity<?> createNewCompanyUser(@PathVariable long companyId,
+            @RequestBody CreateNewCompanyUserRequest request) {
+        WebUserResponse response = new WebUserResponse();
+        if (request.getType().equals(Constant.RoleType.ROLE_COMPANY_USER.name())) {
+            request.setBranchId(0);
+        }
+
+        response = userService.createNewCompanyUser(request.getFirstName() + " " + request.getLastName(),
+                request.getEmail(), request.getPhone(), "0000", request.getType());
+
+        CompanyUser companyUser = companyUserService.createNewCompanyUserRecord(companyId, response.getId(),
+                response.getRole());
+                
+        return ResponseEntity.ok(response);
+
+    }
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dms.base.controller.common.PackagesController;
 import com.dms.base.dto.response.PaginatedResponse;
+import com.dms.base.dto.response.web.WebPackageResponse;
 import com.dms.base.model.Packages;
 import com.dms.base.util.Constant.ShippingStatus;
 
@@ -48,17 +49,19 @@ public class WebPackagesController extends PackagesController {
 
     @GetMapping("/list")
     @Operation(summary = "Get a paginated list of all packages.")
-    public ResponseEntity<PaginatedResponse<Packages>> getPackageList(
+    public ResponseEntity<PaginatedResponse<WebPackageResponse>> getPackageList(
             @PageableDefault(size = 10, page = 0) Pageable pageable) {
 
         Page<Packages> packagePage = packagesService.getPackagesList(pageable);
+        List<WebPackageResponse> packageDtoList = packagesMapper.mapListToWebResponse(packagePage.getContent());
 
-        PaginatedResponse<Packages> response = new PaginatedResponse<>(
+
+        PaginatedResponse<WebPackageResponse> response = new PaginatedResponse<>(
                 packagePage.getNumber(),
                 packagePage.getSize(),
                 packagePage.getTotalElements(),
                 packagePage.getTotalPages(),
-                packagePage.getContent());
+                packageDtoList);
 
         return ResponseEntity.ok(response);
     }

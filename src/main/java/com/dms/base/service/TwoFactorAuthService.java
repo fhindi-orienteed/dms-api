@@ -45,7 +45,7 @@ public class TwoFactorAuthService {
             throw new BadRequestException("2FA is already enabled for this user.");
         }
 
-        if (exist2FA.getSecretKey().equals(providedSecretKey)) {
+        if (exist2FA.getVerificationCode().equals(providedSecretKey)) {
             exist2FA.setEnabled(true);
             twoFactorAuthRepository.save(exist2FA);
             return true;
@@ -85,15 +85,14 @@ public class TwoFactorAuthService {
             throw new BadRequestException("2FA is not enabled for this user");
         }
 
-        return twoFactorAuth.getSecretKey().equals(secretKey);
+        return twoFactorAuth.getVerificationCode().equals(secretKey);
     }
 
     private WebTwoFactorAuthResponse createExisting2FAResponse(User user, TwoFactorAuth exist2FA) {
-        String qrCodeUrl = generateQRCodeUrl(user.getUserName(), exist2FA.getSecretKey());
+        String qrCodeUrl = generateQRCodeUrl(user.getUserName(), exist2FA.getVerificationCode());
 
         WebTwoFactorAuthResponse response = new WebTwoFactorAuthResponse();
         response.setQrCodeUrl(qrCodeUrl);
-        response.setSecretKey(exist2FA.getSecretKey());
         response.setNewlyGenerated(false);
         return response;
     }
@@ -107,7 +106,6 @@ public class TwoFactorAuthService {
 
         WebTwoFactorAuthResponse response = new WebTwoFactorAuthResponse();
         response.setQrCodeUrl(qrCodeUrl);
-        response.setSecretKey(secretKey);
         response.setNewlyGenerated(true);
         return response;
     }
@@ -115,7 +113,7 @@ public class TwoFactorAuthService {
     private void createNewTwoFactorRecord(long userId, String secretKey) {
         TwoFactorAuth newTwoFactorAuth = new TwoFactorAuth();
         newTwoFactorAuth.setUserId(userId);
-        newTwoFactorAuth.setSecretKey(secretKey);
+        newTwoFactorAuth.setVerificationCode(secretKey);
         twoFactorAuthRepository.save(newTwoFactorAuth);
     }
 

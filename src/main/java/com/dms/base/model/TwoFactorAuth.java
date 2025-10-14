@@ -11,7 +11,8 @@ public class TwoFactorAuth {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private String secretKey;
+    private String verificationCode;
+    private String type;
     private boolean enabled = false;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -45,14 +46,22 @@ public class TwoFactorAuth {
         this.userId = userId;
     }
     
-    public String getSecretKey() {
-        return secretKey;
+    public String getVerificationCode() {
+        return verificationCode;
     }
     
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
     
+    public String getType() {
+        return type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }

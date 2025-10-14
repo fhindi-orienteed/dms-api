@@ -1,15 +1,15 @@
 package com.dms.base.dto.request.web;
 
 public class EnableTwoFactorAuthRequest {
-    private String secretKey; 
+    private String verificationCode; 
 
     public EnableTwoFactorAuthRequest() {}
 
-    public String getSecretKey() {
-        return secretKey;
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

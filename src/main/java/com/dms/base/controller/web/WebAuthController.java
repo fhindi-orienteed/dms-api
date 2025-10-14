@@ -60,12 +60,12 @@ public class WebAuthController extends AuthController {
         try {
             User loggedInUser = userService.getCurrentUser();
 
-            if (request.getSecretKey() == null || request.getSecretKey().trim().isEmpty()) {
+            if (request.getVerificationCode() == null || request.getVerificationCode().trim().isEmpty()) {
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "Secret key is required"));
             }
 
-            boolean isEnabled = twoFactorAuthService.enableTwoFactorAuth(loggedInUser, request.getSecretKey());
+            boolean isEnabled = twoFactorAuthService.enableTwoFactorAuth(loggedInUser, request.getVerificationCode());
             if (isEnabled) {
                 return ResponseEntity.ok()
                         .body(Map.of(
@@ -129,16 +129,16 @@ public class WebAuthController extends AuthController {
                                 "error", "User ID is required"));
             }
 
-            if (request.getCode() == null) {
+            if (request.getVerificationCode() == null) {
                 return ResponseEntity.badRequest()
                         .body(Map.of(
                                 "success", false,
                                 "error", "Secret key is required"));
             }
 
-            boolean isValid = twoFactorAuthService.verifyTwoFactorAuth(request.getUserId(), request.getCode());
+            boolean isValid = twoFactorAuthService.verifyTwoFactorAuth(request.getUserId(), request.getVerificationCode());
             if (isValid) {
-                return ResponseEntity.ok(userMapper.mapToMobileResponse(user));
+                return ResponseEntity.ok(authService.webTwoFactorAuthLogin(user));
             } else {
                 return ResponseEntity.badRequest()
                         .body(Map.of(

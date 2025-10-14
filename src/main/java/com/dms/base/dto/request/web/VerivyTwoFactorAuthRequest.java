@@ -2,7 +2,7 @@ package com.dms.base.dto.request.web;
 
 public class VerivyTwoFactorAuthRequest {
     private Long userId;
-    private String code;
+    private String verificationCode;
 
     public VerivyTwoFactorAuthRequest() {
     }
@@ -16,11 +16,11 @@ public class VerivyTwoFactorAuthRequest {
         this.userId = userId;
     }
 
-    public String getCode() {
-        return code;
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

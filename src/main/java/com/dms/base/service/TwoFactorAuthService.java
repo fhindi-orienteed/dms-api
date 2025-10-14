@@ -114,6 +114,7 @@ public class TwoFactorAuthService {
         TwoFactorAuth newTwoFactorAuth = new TwoFactorAuth();
         newTwoFactorAuth.setUserId(userId);
         newTwoFactorAuth.setVerificationCode(secretKey);
+        newTwoFactorAuth.setType(Constant.TwoFactorAuthType.APP.name());
         twoFactorAuthRepository.save(newTwoFactorAuth);
     }
 

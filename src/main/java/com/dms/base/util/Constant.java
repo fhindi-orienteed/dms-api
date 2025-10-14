@@ -82,4 +82,10 @@ public class Constant {
         WARNING
     }
 
+    public enum TwoFactorAuthType {
+        APP,
+        SMS,
+        EMAIL
+    }
+
 }

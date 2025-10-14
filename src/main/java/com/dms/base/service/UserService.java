@@ -31,6 +31,10 @@ public class UserService {
     public User getByUserName(String userName) {
         return userRepository.findByUserName(userName).orElse(null);
     }
+    
+    public User getByUserId(long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

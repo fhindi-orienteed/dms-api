@@ -13,6 +13,7 @@ import com.dms.base.repository.UserRepository;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import com.dms.base.util.Constant.TwoFactorAuthType;
 
 @Service
 public class TwoFactorAuthService {
@@ -114,7 +115,7 @@ public class TwoFactorAuthService {
         TwoFactorAuth newTwoFactorAuth = new TwoFactorAuth();
         newTwoFactorAuth.setUserId(userId);
         newTwoFactorAuth.setVerificationCode(secretKey);
-        newTwoFactorAuth.setType(Constant.TwoFactorAuthType.APP.name());
+        newTwoFactorAuth.setType(TwoFactorAuthType.APP.name());
         twoFactorAuthRepository.save(newTwoFactorAuth);
     }
 

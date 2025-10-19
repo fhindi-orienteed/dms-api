@@ -72,6 +72,14 @@ public class AuthService {
         MobileLoginResponse response = new MobileLoginResponse(accessToken, userMapper.mapToMobileResponse(user));
         return response;
     }
+
+    public WebLoginResponse webTwoFactorAuthLogin(User user) {
+        String accessToken = jwtUtility.generateWebAccessToken(user);
+        updateLastSession(user);
+        WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
+        response.setExpiresIn(webExpiration);
+        return response;
+    }
     
     public void resetPassword(String userName) {
         User existUser = userRepository.findByUserName(userName).orElse(null);

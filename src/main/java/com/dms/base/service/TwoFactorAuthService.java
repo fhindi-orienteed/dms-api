@@ -13,6 +13,7 @@ import com.dms.base.repository.UserRepository;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import com.dms.base.util.Constant;
 import com.dms.base.util.Constant.TwoFactorAuthType;
 
 @Service
@@ -25,13 +26,13 @@ public class TwoFactorAuthService {
     private final GoogleAuthenticator gAuth = new GoogleAuthenticator();
     private final String ISSUER = "Delivery System";
 
-    public WebTwoFactorAuthResponse setupTwoFactorAuth(User user) {
+    public WebTwoFactorAuthResponse setupWebTwoFactorAuth(User user) {
         TwoFactorAuth exist2FA = twoFactorAuthRepository.findByUserId(user.getId());
-
+        String type = Constant.TwoFactorAuthType.EMAIL.name();
         if (exist2FA != null) {
             return createExisting2FAResponse(user, exist2FA);
         } else {
-            return createNew2FAResponse(user);
+            return createNew2FAResponse(user, type);
         }
     }
 
@@ -98,24 +99,24 @@ public class TwoFactorAuthService {
         return response;
     }
 
-    private WebTwoFactorAuthResponse createNew2FAResponse(User user) {
+    private WebTwoFactorAuthResponse createNew2FAResponse(User user, String type) {
         GoogleAuthenticatorKey key = gAuth.createCredentials();
         String secretKey = key.getKey();
         String qrCodeUrl = generateQRCodeUrl(user.getUserName(), key);
 
-        createNewTwoFactorRecord(user.getId(), secretKey);
+        createNewTwoFactorRecord(user.getId(), secretKey, type);
 
         WebTwoFactorAuthResponse response = new WebTwoFactorAuthResponse();
-        response.setQrCodeUrl(qrCodeUrl);
+        response.setQrCodeUrl(qrCodeUrl);;
         response.setNewlyGenerated(true);
         return response;
     }
 
-    private void createNewTwoFactorRecord(long userId, String secretKey) {
+    private void createNewTwoFactorRecord(long userId, String secretKey ,String type) {
         TwoFactorAuth newTwoFactorAuth = new TwoFactorAuth();
         newTwoFactorAuth.setUserId(userId);
         newTwoFactorAuth.setVerificationCode(secretKey);
-        newTwoFactorAuth.setType(TwoFactorAuthType.APP.name());
+        newTwoFactorAuth.setType(type);
         twoFactorAuthRepository.save(newTwoFactorAuth);
     }
 

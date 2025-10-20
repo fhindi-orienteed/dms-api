@@ -12,7 +12,9 @@ import com.dms.base.dto.response.web.WebLoginResponse;
 import com.dms.base.exception.AccountLockedException;
 import com.dms.base.exception.InvalidCredentialsException;
 import com.dms.base.mapper.UserMapper;
+import com.dms.base.model.TwoFactorAuth;
 import com.dms.base.model.User;
+import com.dms.base.repository.TwoFactorAuthRepository;
 import com.dms.base.repository.UserRepository;
 import com.dms.base.util.Constant;
 import com.dms.base.util.JwtUtility;
@@ -29,16 +31,19 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtility jwtUtility;
+    private final TwoFactorAuthRepository twoFactorAuthRepository;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtility jwtUtility) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtility jwtUtility,
+            TwoFactorAuthRepository twoFactorAuthRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtility = jwtUtility;
+        this.twoFactorAuthRepository = twoFactorAuthRepository;
     }
 
     public WebLoginResponse webLogin(String userName, String password) {
         User user = userRepository.findByUserName(userName).orElseThrow(InvalidCredentialsException::new);
-
+        TwoFactorAuth exist2Fa = twoFactorAuthRepository.findByUserId(user.getId());
         if (Constant.USER_STATUS_DISABLED == user.getStatus()) {
             throw new AccountLockedException();
         }
@@ -46,12 +51,30 @@ public class AuthService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new InvalidCredentialsException();
         }
+
         String accessToken = jwtUtility.generateWebAccessToken(user);
 
         WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
         updateLastSession(user);
         response.setExpiresIn(webExpiration);
+        if (exist2Fa != null) {
+            response.setEnabled(exist2Fa.isEnabled());
+            response.setType(exist2Fa.getType());
 
+        } else {
+            response.setEnabled(false);
+            response.setType(null);
+        }
+        return response;
+    }
+
+    public WebLoginResponse webTwoFactorAuthLogin(User user) {
+        String accessToken = jwtUtility.generateWebAccessToken(user);
+        TwoFactorAuth exist2Fa = twoFactorAuthRepository.findByUserId(user.getId());
+        updateLastSession(user);
+        WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
+        response.setEnabled(exist2Fa.isEnabled());
+        response.setType(exist2Fa.getType());
         return response;
     }
 
@@ -73,14 +96,6 @@ public class AuthService {
         return response;
     }
 
-    public WebLoginResponse webTwoFactorAuthLogin(User user) {
-        String accessToken = jwtUtility.generateWebAccessToken(user);
-        updateLastSession(user);
-        WebLoginResponse response = new WebLoginResponse(accessToken, userMapper.mapToWebResponse(user));
-        response.setExpiresIn(webExpiration);
-        return response;
-    }
-    
     public void resetPassword(String userName) {
         User existUser = userRepository.findByUserName(userName).orElse(null);
         encodeNewPassword(existUser, "0000");
@@ -93,7 +108,7 @@ public class AuthService {
         userRepository.save(existUser);
     }
 
-    private void updateLastSession(User user){
+    private void updateLastSession(User user) {
         user.setLastSession(LocalDateTime.now());
         userRepository.save(user);
     }

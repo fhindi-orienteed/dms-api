@@ -1,12 +1,14 @@
 package com.dms.base.mapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.dms.base.dto.response.PublicPackageResponse;
 import com.dms.base.dto.response.mobile.MobilePackageResponse;
+import com.dms.base.dto.response.web.WebPackageResponse;
 import com.dms.base.model.Packages;
 
 @Component
@@ -60,4 +62,31 @@ public class PackagesMapper {
     public List<MobilePackageResponse> toMobileResponse(List<Packages> list) {
         return list.stream().map(packg -> toMobileResponse(packg)).toList();
     }
+
+    public WebPackageResponse mapToWebResponse(Packages pkg) {
+        if (pkg == null) {
+            return null;
+        }
+
+        WebPackageResponse response = new WebPackageResponse();
+        
+        response.setUuid(pkg.getUuid());
+        response.setCustomerName(pkg.getCustomerName());
+        response.setShippingStatus(pkg.getShippingStatus());
+        response.setPaymentAmount(pkg.getPaymentAmount());
+        response.setDeliveryCity(pkg.getDeliveryCity());
+        
+        return response;
+    }
+
+    public List<WebPackageResponse> mapListToWebResponse(List<Packages> packagesList) {
+    if (packagesList == null) {
+        return null;
+    }
+
+    return packagesList.stream()
+            .map(this::mapToWebResponse) 
+            .collect(Collectors.toList());
+    }
+    
 }

@@ -2,6 +2,7 @@ package com.dms.base.controller.common;
 
 import com.dms.base.service.AddressService;
 import com.dms.base.service.AuthService;
+import com.dms.base.service.TwoFactorAuthService;
 import com.dms.base.service.UserService;
 import com.dms.base.service.UserVerifyService;
 
@@ -19,4 +20,7 @@ public class AuthController {
 
     @Autowired
     protected AddressService addressService;
+    
+    @Autowired
+    protected TwoFactorAuthService twoFactorAuthService;
 }

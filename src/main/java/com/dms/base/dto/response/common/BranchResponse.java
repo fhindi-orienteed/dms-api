@@ -1,33 +1,20 @@
-package com.dms.base.model;
+package com.dms.base.dto.response.common;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "companies")
-public class Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BranchResponse {
     private Long id;
-
-    private LocalDateTime createdDate;
+    private Long companyId;
+    private Date createdDate;
     private String name;
-    private String country;
+    private String county;
     private String city;
     private String address;
     private String email;
     private String phone;
     private String mobile;
-    private String facebook;
-    private String instegram;
-    private String registrationNumber;
     private String status;
-
+    
     public Long getId() {
         return id;
     }
@@ -36,11 +23,19 @@ public class Company {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -52,12 +47,12 @@ public class Company {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCounty() {
+        return county;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public String getCity() {
@@ -100,30 +95,6 @@ public class Company {
         this.mobile = mobile;
     }
 
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getInstegram() {
-        return instegram;
-    }
-
-    public void setInstegram(String instegram) {
-        this.instegram = instegram;
-    }
-
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -131,4 +102,5 @@ public class Company {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

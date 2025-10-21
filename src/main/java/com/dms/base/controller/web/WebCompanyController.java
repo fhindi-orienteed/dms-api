@@ -1,47 +1,46 @@
 package com.dms.base.controller.web;
 
+import com.dms.base.dto.request.web.CreateNewBranchRequest;
+import com.dms.base.dto.request.web.CreateNewCompanyUserRequest;
+import com.dms.base.dto.request.web.NewCompanyRequest;
+import com.dms.base.dto.response.web.WebBranchResponse;
+import com.dms.base.dto.response.web.WebCompanyUserResponse;
+import com.dms.base.service.BranchService;
+import com.dms.base.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.dms.base.controller.common.CompanyController;
-import com.dms.base.dto.request.web.CreateNewBranchRequest;
-import com.dms.base.dto.response.web.WebBranchResponse;
-import com.dms.base.model.Branch;
-import com.dms.base.service.BranchService;
-import com.dms.base.mapper.BranchMapper;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 
 @RestController
-@RequestMapping("/v1/web/company")
-@Tag(name = "Company API", description = "Endpoints for Web Company API")
-public class WebCompanyController extends CompanyController {
+@RequestMapping("/web/company")
+@RequiredArgsConstructor
+public class WebCompanyController {
 
-    @Autowired
-    private BranchService branchService;
+    private final CompanyService companyService;
+    private final BranchService branchService;
 
-    @PostMapping("/{companyId}/branch/new")
-    public ResponseEntity<WebBranchResponse> createNewBranch(
-            @PathVariable Long companyId,
-            @RequestBody CreateNewBranchRequest request) {
+    @PostMapping("/create")
+    public ResponseEntity<?> createNewCompany(@RequestBody NewCompanyRequest request) {
+        return ResponseEntity.ok(companyService.createNewCompany(request));
+    }
 
-        Branch branch = branchService.createNewBranch(
-                companyId,
-                null,
-                request.getName(),
-                request.getCountry(),
-                request.getCity(),
-                request.getAddress(),
-                request.getEmail(),
-                request.getPhone(),
-                request.getMobile(),
-                request.getStatus()
-        );
-
-        WebBranchResponse response = BranchMapper.mapToWebResponse(branch);
+    @PostMapping("/user/create")
+    public ResponseEntity<WebCompanyUserResponse> createCompanyUser(
+            @RequestBody CreateNewCompanyUserRequest request) {
+        WebCompanyUserResponse response = companyService.createNewCompanyUser(request);
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/branch/create")
+    public ResponseEntity<WebBranchResponse> createBranch(
+            @RequestBody CreateNewBranchRequest request) {
+        return ResponseEntity.ok(branchService.createBranch(request));
+    }
 
+    @GetMapping("/{companyId}/branches")
+    public ResponseEntity<List<WebBranchResponse>> getCompanyBranches(@PathVariable Long companyId) {
+        return ResponseEntity.ok(branchService.getBranchesByCompanyId(companyId));
+    }
 }

@@ -1,16 +1,20 @@
 package com.dms.base.service;
 
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import com.dms.base.model.Branch;
 import com.dms.base.repository.BranchRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BranchService {
 
-    @Autowired
-    private BranchRepository branchRepository;
+    private final BranchRepository branchRepository;
 
     public Branch createNewBranch(Long companyId, Date createdDate, String name, String country, String city,
                                   String address, String email, String phone, String mobile, String status) {
@@ -28,5 +32,9 @@ public class BranchService {
         b.setStatus(status);
 
         return branchRepository.save(b);
+    }
+
+    public List<Branch> listByCompanyId(long companyId) {
+        return branchRepository.findAllByCompanyId(companyId);
     }
 }

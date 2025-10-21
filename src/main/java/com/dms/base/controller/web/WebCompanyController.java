@@ -1,20 +1,15 @@
 package com.dms.base.controller.web;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dms.base.controller.common.CompanyController;
-import com.dms.base.dto.request.web.NewCompanyRequest;
-import com.dms.base.dto.response.PaginatedResponse;
-import com.dms.base.dto.response.web.WebCompanyResponse;
-import com.dms.base.model.Company;
+import com.dms.base.dto.request.web.CreateNewBranchRequest;
+import com.dms.base.dto.response.web.WebBranchResponse;
+import com.dms.base.model.Branch;
+import com.dms.base.service.BranchService;
+import com.dms.base.mapper.BranchMapper;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -23,33 +18,30 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Company API", description = "Endpoints for Web Company API")
 public class WebCompanyController extends CompanyController {
 
-    @GetMapping("/current")
-    public ResponseEntity<WebCompanyResponse> getCurrentCompany() {
-        Company company = companyService.getCurrentCompany();
-        return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
-    }
+    @Autowired
+    private BranchService branchService;
 
-    @GetMapping("/list")
-    public ResponseEntity<?> getCompanyList(@PageableDefault(size = 10) Pageable pageable) {
-        Page<Company> list = companyService.getCopmpanyList(pageable);
+    @PostMapping("/{companyId}/branch/new")
+    public ResponseEntity<WebBranchResponse> createNewBranch(
+            @PathVariable Long companyId,
+            @RequestBody CreateNewBranchRequest request) {
 
-        PaginatedResponse<WebCompanyResponse> response = new PaginatedResponse<WebCompanyResponse>();
-        response.setData(companyMapper.mapToWebResponse(list));
-        response.setPage(list.getNumber());
-        response.setSize(list.getSize());
-        response.setTotalItems(list.getTotalElements());
-        response.setTotalPages(list.getTotalPages());
+        Branch branch = branchService.createNewBranch(
+                companyId,
+                null,
+                request.getName(),
+                request.getCountry(),
+                request.getCity(),
+                request.getAddress(),
+                request.getEmail(),
+                request.getPhone(),
+                request.getMobile(),
+                request.getStatus()
+        );
 
+        WebBranchResponse response = BranchMapper.mapToWebResponse(branch);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<WebCompanyResponse> createNewCompany(@RequestBody NewCompanyRequest request) {
-        Company company = companyService.createNewCompany(request.getName(), request.getCountry(), request.getCity(),
-                request.getAddress(), request.getEmail(), request.getPhone(), request.getMobile(),
-                request.getFacebook(), request.getInstegram(), request.getRegistrationNumber());
 
-        WebCompanyResponse res = companyMapper.mapToWebResponse(company);
-        return ResponseEntity.ok(res);
-    }
 }

@@ -51,7 +51,7 @@ public class WebAuthController extends AuthController {
     @GetMapping("/2fa/setup")
     public ResponseEntity<?> setupTwoFactorAuth() {
         User loggedInUser = userService.getCurrentUser();
-        WebTwoFactorAuthResponse response = twoFactorAuthService.setupTwoFactorAuth(loggedInUser);
+        WebTwoFactorAuthResponse response = twoFactorAuthService.setupWebTwoFactorAuth(loggedInUser);
         return ResponseEntity.ok(response);
     }
 

@@ -1,6 +1,8 @@
 package com.dms.base.dto.request.web;
 
 public class CreateNewBranchRequest {
+
+    private Long companyId;
     private String name;
     private String country;
     private String city;
@@ -10,7 +12,9 @@ public class CreateNewBranchRequest {
     private String mobile;
     private String status;
 
-    // getters and setters (properly capitalized)
+    public Long getCompanyId() { return companyId; }
+    public void setCompanyId(Long companyId) { this.companyId = companyId; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

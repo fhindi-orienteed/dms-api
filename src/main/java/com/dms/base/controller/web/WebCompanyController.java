@@ -7,7 +7,6 @@ import com.dms.base.dto.response.web.WebBranchResponse;
 import com.dms.base.dto.response.web.WebCompanyUserResponse;
 import com.dms.base.service.BranchService;
 import com.dms.base.service.CompanyService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +14,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/web/company")
-@RequiredArgsConstructor
 public class WebCompanyController {
 
     private final CompanyService companyService;
     private final BranchService branchService;
+
+    // Constructor Injection (replaces @RequiredArgsConstructor)
+    public WebCompanyController(CompanyService companyService, BranchService branchService) {
+        this.companyService = companyService;
+        this.branchService = branchService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createNewCompany(@RequestBody NewCompanyRequest request) {
@@ -34,8 +38,7 @@ public class WebCompanyController {
     }
 
     @PostMapping("/branch/create")
-    public ResponseEntity<WebBranchResponse> createBranch(
-            @RequestBody CreateNewBranchRequest request) {
+    public ResponseEntity<WebBranchResponse> createBranch(@RequestBody CreateNewBranchRequest request) {
         return ResponseEntity.ok(branchService.createBranch(request));
     }
 

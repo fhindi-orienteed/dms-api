@@ -1,40 +1,48 @@
 package com.dms.base.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+import com.dms.base.dto.request.web.CreateNewBranchRequest;
+import com.dms.base.dto.response.web.WebBranchResponse;
+import com.dms.base.mapper.BranchMapper;
 import com.dms.base.model.Branch;
 import com.dms.base.repository.BranchRepository;
+import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class BranchService {
 
     private final BranchRepository branchRepository;
+    private final BranchMapper branchMapper;
 
-    public Branch createNewBranch(Long companyId, Date createdDate, String name, String country, String city,
-                                  String address, String email, String phone, String mobile, String status) {
-        Branch b = new Branch();
-
-        b.setCompanyId(companyId);
-        b.setCreatedDate(createdDate != null ? createdDate : new Date());
-        b.setName(name);
-        b.setCountry(country);
-        b.setCity(city);
-        b.setAddress(address);
-        b.setEmail(email);
-        b.setPhone(phone);
-        b.setMobile(mobile);
-        b.setStatus(status);
-
-        return branchRepository.save(b);
+    public BranchService(BranchRepository branchRepository, BranchMapper branchMapper) {
+        this.branchRepository = branchRepository;
+        this.branchMapper = branchMapper;
     }
 
-    public List<Branch> listByCompanyId(long companyId) {
-        return branchRepository.findAllByCompanyId(companyId);
+    public WebBranchResponse createBranch(CreateNewBranchRequest request) {
+        Branch branch = new Branch();
+        branch.setCompanyId(request.getCompanyId());
+        branch.setCreatedDate(new Date());
+        branch.setName(request.getName());
+        branch.setCountry(request.getCountry());
+        branch.setCity(request.getCity());
+        branch.setAddress(request.getAddress());
+        branch.setEmail(request.getEmail());
+        branch.setPhone(request.getPhone());
+        branch.setMobile(request.getMobile());
+        branch.setStatus(request.getStatus());
+
+        Branch savedBranch = branchRepository.save(branch);
+        return branchMapper.toWebBranchResponse(savedBranch);
+    }
+
+    public List<WebBranchResponse> getBranchesByCompanyId(Long companyId) {
+        List<Branch> branches = branchRepository.findAllByCompanyId(companyId);
+        return branches.stream()
+                .map(branchMapper::toWebBranchResponse)
+                .collect(Collectors.toList());
     }
 }

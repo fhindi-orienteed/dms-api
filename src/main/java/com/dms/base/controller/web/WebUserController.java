@@ -12,10 +12,7 @@ import com.dms.base.dto.response.web.WebUserProfileResponse;
 import com.dms.base.exception.ObjectNotFoundException;
 import com.dms.base.mapper.CompanyMapper;
 import com.dms.base.mapper.DriverMapper;
-import com.dms.base.model.Company;
-import com.dms.base.model.CompanyUser;
 import com.dms.base.model.Driver;
-import com.dms.base.model.Profile;
 import com.dms.base.model.User;
 import com.dms.base.service.CompanyService;
 import com.dms.base.service.CompanyUserService;
@@ -54,13 +51,23 @@ public class WebUserController extends UserController {
     @GetMapping("/current/profile")
     @Operation(summary = "Get the current web user's full profile")
     public ResponseEntity<WebUserProfileResponse> getUserProfile() {
-        return ResponseEntity.ok(profileService.buildUserProfileResponse());
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null) {
+            throw new ObjectNotFoundException("No authenticated user found.");
+        }
+
+        return ResponseEntity.ok(profileService.buildUserProfileResponse(currentUser.getId()));
+        
     }
 
     @PostMapping("/profile/update")
     @Operation(summary = "Update the current web user's profile")
     public ResponseEntity<WebUserProfileResponse> updateProfile(@RequestBody UpdateProfileRequest request) {
-    
-        return ResponseEntity.ok(profileService.updateProfile(request));
+        User currentUser = userService.getCurrentUser();
+        if (currentUser == null) {
+            throw new IllegalStateException("No authenticated user found.");
+        }
+
+        return ResponseEntity.ok(profileService.updateProfile(currentUser.getId(),request));
     }
 }

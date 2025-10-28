@@ -9,6 +9,7 @@ import com.dms.base.dto.response.web.WebUserProfileResponse;
 import com.dms.base.mapper.CompanyMapper;
 import com.dms.base.mapper.DriverMapper;
 import com.dms.base.repository.ProfileRepository;
+import com.dms.base.repository.UserRepository;
 import com.dms.base.util.Constant.RoleType;
 import com.dms.base.model.Driver;
 import com.dms.base.exception.ObjectNotFoundException;
@@ -26,23 +27,23 @@ public class ProfileService {
     private static final Logger log = LoggerFactory.getLogger(ProfileService.class); 
 
     private final ProfileRepository profileRepository;
-    private final UserService userService;
     private final DriverService driverService;
     private final CompanyUserService companyUserService;
     private final CompanyService companyService;
     private final DriverMapper driverMapper;
     private final CompanyMapper companyMapper;
+    private final UserRepository userRepository;
 
-    public ProfileService(ProfileRepository profileRepository, UserService userService,
+    public ProfileService(ProfileRepository profileRepository,
                           DriverService driverService, CompanyUserService companyUserService,
-                          CompanyService companyService, DriverMapper driverMapper, CompanyMapper companyMapper) {
+                          CompanyService companyService, DriverMapper driverMapper, CompanyMapper companyMapper , UserRepository userRepository) {
         this.profileRepository = profileRepository;
-        this.userService = userService;
         this.driverService = driverService;
         this.companyUserService = companyUserService;
         this.companyService = companyService;
         this.driverMapper = driverMapper;
         this.companyMapper = companyMapper;
+        this.userRepository = userRepository;
     }
     
    /**
@@ -56,16 +57,13 @@ public class ProfileService {
     }
 
     @Transactional
-    public WebUserProfileResponse updateProfile(UpdateProfileRequest request) {
-        User currentUser = userService.getCurrentUser();
-        if (currentUser == null) {
-            throw new IllegalStateException("No authenticated user found.");
-        }
+    public WebUserProfileResponse updateProfile(Long userId,UpdateProfileRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException("User not found with ID: " + userId));
 
-        Profile profile = profileRepository.findById(currentUser.getId()).orElseGet(() -> {
+        Profile profile = profileRepository.findById(userId).orElseGet(() -> {
             Profile newProfile = new Profile();
-            newProfile.setUserId(currentUser);
-            newProfile.setId(currentUser.getId());
+            newProfile.setUserId(user.getId());
+            newProfile.setId(userId);
             return newProfile;
         });
 
@@ -80,19 +78,15 @@ public class ProfileService {
         } catch (ObjectOptimisticLockingFailureException e) {
             log.warn("Optimistic lock conflict for profile ID: {}. Error: {}", profile.getId(), e.getMessage());
             
-            throw new IllegalStateException("فشل حفظ التغييرات. قام مستخدم آخر بتحديث هذه البيانات. يرجى تحديث الصفحة والمحاولة مرة أخرى.");
+            throw new IllegalStateException("Failed to save changes. Another user has updated this data. Please refresh the page and try again.");
         }
-
-        return buildUserProfileResponse();
+        return buildUserProfileResponse(userId);
     }
 
-    public WebUserProfileResponse buildUserProfileResponse() {
-        User user = userService.getCurrentUser();
-        if (user == null) {
-            throw new ObjectNotFoundException("No authenticated user found.");
-        }
+    public WebUserProfileResponse buildUserProfileResponse(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException("User not found with ID: " + userId));
 
-        Profile profile = findByUserId(user.getId());
+        Profile profile = findByUserId(userId);
 
         WebUserProfileResponse response = new WebUserProfileResponse();
         response.setEmail(user.getEmail());

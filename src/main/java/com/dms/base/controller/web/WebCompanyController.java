@@ -52,9 +52,9 @@ public class WebCompanyController extends CompanyController {
         return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WebCompanyResponse> getCompanyById(@PathVariable long id) {
-        Company company = companyService.findByCompanyId(id);
+    @GetMapping("/{companyId}")
+    public ResponseEntity<WebCompanyResponse> getCompanyById(@PathVariable long companyId) {
+        Company company = companyService.findByCompanyId(companyId);
         return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
     }
 

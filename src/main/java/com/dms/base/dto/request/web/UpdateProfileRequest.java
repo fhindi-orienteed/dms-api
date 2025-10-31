@@ -1,14 +1,6 @@
-package com.dms.base.model;
+package com.dms.base.dto.request.web;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "profiles")
-public class Profile {
-
-    @Id
-    private Long id;
-    private Long userId;
+public class UpdateProfileRequest {
 
     private String firstName;
     private String lastName;
@@ -16,13 +8,6 @@ public class Profile {
     private String phone;
     private String address;
 
-    @Version
-    private Long version;
-    
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
@@ -33,10 +18,4 @@ public class Profile {
     public void setPhone(String phone) { this.phone = phone; }
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
-    public Long getVersion() {
-        return version;
-    }
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 }

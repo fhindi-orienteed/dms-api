@@ -52,6 +52,12 @@ public class WebCompanyController extends CompanyController {
         return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<WebCompanyResponse> getCompanyById(@PathVariable long id) {
+        Company company = companyService.findByCompanyId(id);
+        return ResponseEntity.ok(companyMapper.mapToWebResponse(company));
+    }
+
     @GetMapping("/list")
     public ResponseEntity<?> getCompanyList(@PageableDefault(size = 10) Pageable pageable) {
         Page<Company> list = companyService.getCopmpanyList(pageable);
@@ -75,7 +81,7 @@ public class WebCompanyController extends CompanyController {
         WebCompanyResponse res = companyMapper.mapToWebResponse(company);
         return ResponseEntity.ok(res);
     }
-    
+
     @GetMapping("/{companyId}/branch/list")
     public ResponseEntity<?> listCompanyBranch(@PathVariable long companyId) {
         List<Branch> branchs = branchService.listByCompanyId(companyId);
@@ -100,7 +106,7 @@ public class WebCompanyController extends CompanyController {
 
         CompanyUser companyUser = companyUserService.createNewCompanyUserRecord(companyId, response.getId(),
                 response.getRole());
-                
+
         return ResponseEntity.ok(response);
 
     }

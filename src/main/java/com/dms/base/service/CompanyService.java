@@ -37,8 +37,7 @@ public class CompanyService {
         company.setRegistrationNumber(registrationNumber);
 
         company.setCreatedDate(LocalDateTime.now());
-        company.setStatus( Constant.STATUS_ACTIVE);
-
+        company.setStatus(Constant.STATUS_ACTIVE);
 
         return companyRepository.save(company);
     }
@@ -62,7 +61,6 @@ public class CompanyService {
     }
 
     public Company findByCompanyId(long id) {
-        Company company = companyRepository.findById(id).orElse(null);
-        return company;
+        return companyRepository.findById(id).orElse(null);
     }
 }

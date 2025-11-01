@@ -7,14 +7,14 @@ public class BranchResponse {
     private Long companyId;
     private Date createdDate;
     private String name;
-    private String county;
+    private String country;
     private String city;
     private String address;
     private String email;
     private String phone;
     private String mobile;
     private String status;
-    
+
     public Long getId() {
         return id;
     }
@@ -47,12 +47,12 @@ public class BranchResponse {
         this.name = name;
     }
 
-    public String getCounty() {
-        return county;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {

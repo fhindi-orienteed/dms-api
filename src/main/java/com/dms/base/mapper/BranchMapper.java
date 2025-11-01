@@ -13,7 +13,7 @@ public class BranchMapper {
         response.setAddress(branch.getAddress());
         response.setCity(branch.getCity());
         response.setCompanyId(branch.getCompanyId());
-        response.setCounty(branch.getCounty());
+        response.setCountry(branch.getCountry());
         response.setCreatedDate(branch.getCreatedDate());
         response.setName(branch.getName());
         response.setPhone(branch.getPhone());

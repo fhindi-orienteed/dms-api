@@ -14,7 +14,7 @@ public class CompanyMapper {
 
     public WebCompanyResponse mapToWebResponse(Company company) {
         WebCompanyResponse res = new WebCompanyResponse();
-        
+
         res.setId(company.getId());
         res.setName(company.getName());
         res.setCountry(company.getCountry());
@@ -24,7 +24,13 @@ public class CompanyMapper {
         res.setPhone(company.getPhone());
         res.setMobile(company.getMobile());
         res.setFacebook(company.getFacebook());
-        res.setInstegram(company.getInstegram());
+        res.setInstagram(company.getInstagram());
+        res.setLinkedin(company.getLinkedin());
+        res.setTwitter(company.getTwitter());
+        res.setWebsite(company.getWebsite());
+        res.setWhatsapp(company.getWhatsapp());
+        res.setTelegram(company.getTelegram());
+        res.setTiktok(company.getTiktok());
         res.setRegistrationNumber(company.getRegistrationNumber());
         res.setStatus(company.getStatus());
         res.setCreatedDate(company.getCreatedDate());
@@ -46,12 +52,17 @@ public class CompanyMapper {
         res.setPhone(company.getPhone());
         res.setMobile(company.getMobile());
         res.setFacebook(company.getFacebook());
-        res.setInstegram(company.getInstegram());
+        res.setInstagram(company.getInstagram());
+        res.setLinkedin(company.getLinkedin());
+        res.setTwitter(company.getTwitter());
+        res.setWebsite(company.getWebsite());
+        res.setWhatsapp(company.getWhatsapp());
+        res.setTelegram(company.getTelegram());
+        res.setTiktok(company.getTiktok());
         res.setRegistrationNumber(company.getRegistrationNumber());
         res.setStatus(company.getStatus());
         res.setCreatedDate(company.getCreatedDate());
         return res;
     }
-
 
 }

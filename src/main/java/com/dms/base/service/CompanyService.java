@@ -33,7 +33,7 @@ public class CompanyService {
         company.setPhone(phone);
         company.setMobile(mobile);
         company.setFacebook(facebook);
-        company.setInstegram(instegram);
+        company.setInstagram(instegram);
         company.setRegistrationNumber(registrationNumber);
 
         company.setCreatedDate(LocalDateTime.now());

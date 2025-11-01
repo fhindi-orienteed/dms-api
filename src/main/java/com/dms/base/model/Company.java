@@ -23,8 +23,16 @@ public class Company {
     private String email;
     private String phone;
     private String mobile;
+
     private String facebook;
-    private String instegram;
+    private String instagram;
+    private String twitter;
+    private String website;
+    private String whatsapp;
+    private String telegram;
+    private String tiktok;
+    private String linkedin;
+
     private String registrationNumber;
     private String status;
 
@@ -108,14 +116,6 @@ public class Company {
         this.facebook = facebook;
     }
 
-    public String getInstegram() {
-        return instegram;
-    }
-
-    public void setInstegram(String instegram) {
-        this.instegram = instegram;
-    }
-
     public String getRegistrationNumber() {
         return registrationNumber;
     }
@@ -131,4 +131,61 @@ public class Company {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getWhatsapp() {
+        return whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
+    }
+
+    public String getTelegram() {
+        return telegram;
+    }
+
+    public void setTelegram(String telegram) {
+        this.telegram = telegram;
+    }
+
+    public String getTiktok() {
+        return tiktok;
+    }
+
+    public void setTiktok(String tiktok) {
+        this.tiktok = tiktok;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
+
 }
